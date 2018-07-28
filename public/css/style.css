@@ -1,0 +1,14 @@
+body{
+background: #f8f9fa;
+}
+.main_cover {
+    background-image: url("../images/main-cover.jpeg");
+}
+
+
+.form-container{
+    background: white;
+}
+section{
+    padding-bottom: 20px;
+}
