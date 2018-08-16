@@ -21,6 +21,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('/signup','userController@userSingUp');
 
 
+
 //    Route::get('/home','HomeController@index' )
 //        ->middleware(['auth'])
 //        ->name('home');
@@ -28,6 +29,14 @@ Route::middleware(['web'])->group(function () {
     Route::get('/logout','userController@logout')->name('logout');
 
 
+});
+
+Route::middleware(['web','auth'])->group(function () {
+
+    Route::get('/wallet','WalletController@index')->name('wallet');
+    Route::post('/wallet','WalletController@newWallet')->name('newWallet');
+    Route::get('/settings','userController@settings')->name('settings');
+    Route::post('/settings','userController@saveSettings')->name('saveSettings');
 });
 
 //Auth::routes();

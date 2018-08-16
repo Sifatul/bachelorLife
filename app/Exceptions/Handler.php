@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
     {
 //        return parent::render($request, $exception);
 
-//        return parent::render($request, $exception);
+        return parent::render($request, $exception);
 //        return redirect()->route('sigin');
         return response()->json(
             [
