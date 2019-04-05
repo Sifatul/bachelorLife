@@ -1,14 +1,22 @@
 @extends('layouts.index')
 
 @section('content')
+@include('includes.sidebar')
     <div class="container-fluid">
-        <div class="row">
-            @include('includes.sidebar')
-
+      
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
+              
+              <div class="row">
+                  <div class="card" >                                                 
+                      <div class="card-body card-body-dashboard">
+                        <div><i class="fas fa-wallet" aria-hidden="true"></i></div>
+                        <h5 class="card-title">Card title</h5>                        
+                      </div>
+                    </div> 
+              </div>
+                    
+                   
             </main>
-        </div>
     </div>
 @endsection
 <!-- Bootstrap core JavaScript

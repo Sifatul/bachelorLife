@@ -1,6 +1,5 @@
 <header>
-    <div class="container-fluid">
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <nav class="navbar navbar-dark navbar-static-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-sm-3 col-md-2 mr-0"
                href="{{  Auth::check()? url('/'): '' }}">  {{ config('app.name') }}</a>
             {{--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--}}
@@ -16,11 +15,11 @@
                                     <i class="fas fa-sign-out-alt  fw6" title="Log Out"></i>
                                     <span class="my-2 my-sm-0 ">Logout</span>
                                 </a>
-                                <a class="nav-link dropdown-item  px-2" href="{{url('settings')}}">
+                                {{-- <a class="nav-link dropdown-item  px-2" href="{{url('settings')}}">
                                     <i class="fas fa-cogs" title="Settings"></i>
                                     <span class="my-2 my-sm-0"> Settings</span>
 
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     @endif
@@ -67,7 +66,7 @@
 
 
         {{--</nav>--}}
-    </div>
+   
 
 
 </header>

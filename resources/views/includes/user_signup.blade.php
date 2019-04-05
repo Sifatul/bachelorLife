@@ -1,9 +1,3 @@
-@extends('layouts.index')
-@section('title')
-    Signup
-@endsection
-@section('content')
-
 <div class=" form-container ml-auto col-md-3 " >
         <form class="px-4 py-3" method="post" action="{{route('signup')}}">
             <h3>Sign Up</h3>
@@ -37,5 +31,3 @@
         <div class="dropdown-divider"></div>
         <div class="dropdown-item" >Already have account? <a href="{{url('/')}}">Sign In</a></div>
     </div>
-
-@endsection

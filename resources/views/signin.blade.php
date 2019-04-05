@@ -3,10 +3,7 @@
     Signin
 @endsection
 
-@section('content')
-
-
-    <div class="main_cover   ">
+@section('content') 
         <div class="form-container col-md-3 ml-auto ">
             <form class="px-4 py-3" method="post" action="{{'signin'}}">
                 <h3>Sign In</h3>
@@ -47,11 +44,6 @@
             <div class="dropdown-item">Already have account? <a href="{{url('/signup')}}">Sign Up</a></div>
             <a class="dropdown-item" href="#">Forgot password?</a>
 
-        </div>
-    </div>
-
-
-
-
+        </div> 
 
 @endsection
