@@ -5,6 +5,9 @@ body {
   background: white;
   /* background: #f8f9fa; */
 }
+.row{
+  margin: 0;
+}
 
 .navbar-static-top {
   z-index: 999;
@@ -46,6 +49,12 @@ body {
 
 .card-body-dashboard{
   text-align: center;
+}
+.card{
+  width: 150px;
+}
+.card:not(:nth-child(1)) {
+  margin-left: 10px;
 }
 .card-body-dashboard i{
   font-size: 50px;

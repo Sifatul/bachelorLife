@@ -20,16 +20,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            return view('home');
-        }else{
-            return view('signin');
-        }
+        // if(Auth::check()){
+        //     return view('home');
+        // }else{
+        //     return view('auth/signin');
+        // }
     }
 
-    public function signup(){
-        return view('signup');
-    }
+   
 
 
 }

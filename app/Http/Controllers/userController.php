@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\expenseCat;
-use App\fixedExpenses;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -17,7 +14,12 @@ class userController extends Controller
     //
     public function index()
     {
-        return view('home');
+        if(Auth::check()){
+            $all_cat_slug = DB::table('expense_categories')->distinct()->get()->all();            
+            return view('home')->with('all_cat_slug',  $all_cat_slug);
+        }else{
+            return view('auth/signin');
+        }
     }
 
     public function userSingUp(Request $request)
@@ -89,6 +91,9 @@ class userController extends Controller
         return view('settings')
             ->with('data', ['all_cat' => $all_cat, 'button_title' => $button_title]);
 
+    }
+    public function signup(){
+        return view('auth/signup');
     }
 
     public function saveSettings(Request $request)
