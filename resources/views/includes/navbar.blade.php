@@ -7,7 +7,7 @@
                 <li class="nav-item text-nowrap">
                     @if( Auth::check())
                         <div class="dropdown header_dropdown">
-                            <i class="far fa-user" id="signOutButton" data-toggle="dropdown" aria-haspopup="true"
+                            <i class="fa fa-user" id="signOutButton" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="signOutButton">
 
