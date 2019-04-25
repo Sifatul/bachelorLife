@@ -42,8 +42,11 @@
                         @case('Internet')
                         <i class="fa fa-globe" aria-hidden="true"></i>
                         @break
-                        @case('Internet')
+                        @case('Other')
                         <i class="fa fa-random" aria-hidden="true"></i>
+                        @break
+                        @case('Shopping')
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         @break
                     @endswitch
 
@@ -62,6 +65,7 @@
                 <th>#</th>
                 <th>Reason</th>
                 <th>Amount</th>
+                <th>Action</th>
 
             </tr>
             </thead>
@@ -73,12 +77,17 @@
                     <td>{{  $loop->index }}</td>
                     <td>{{  $bill->cat_name }}</td>
                     <td>{{  $bill->amount }}</td>
+                    <td>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </td>
                 </tr>
             @endforeach
             <tr>
                 <td> <strong>Total</strong></td>
                 <td> </td>
                 <td><strong>{{  $total_bill}}</strong></td>
+                <td> </td>
             </tr>
 
 
