@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @include('includes.new_expense')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -18,9 +17,6 @@
 
     <div class="row pb-2 mb-3">
         @foreach ($individual_sum_bills as $single_sum)
-
-
-
             <div class="card">
                 <div class="card-body card-body-dashboard">
                     @switch($single_sum->cat_name)
@@ -63,6 +59,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>Date</th>
                 <th>Reason</th>
                 <th>Amount</th>
                 <th>Action</th>
@@ -71,14 +68,18 @@
             </thead>
             <tbody>
 
+            <?php $total = 0; ?>
 
-            @foreach ($all_bills as $bill)
-                <tr>
+            @foreach ($each_bill as $bill)
+                <?php $total += $bill->amount; ?>
+                <tr> 
                     <td>{{  $loop->index }}</td>
+                    <td>{{  $bill->updated_at }}</td>
                     <td>{{  $bill->cat_name }}</td>
-                    <td>{{  $bill->amount }}</td>
+                    <td>{{  $bill->amount }} </td>
+                    
                     <td>
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i  data-toggle="modal" data-target="#exampleModal" data-item-id={{  $bill->id }} class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </td>
                 </tr>
@@ -86,8 +87,10 @@
             <tr>
                 <td> <strong>Total</strong></td>
                 <td> </td>
-                <td><strong>{{  $total_bill}}</strong></td>
                 <td> </td>
+                <td>
+                    <strong > <?php echo $total  ?></strong></td> 
+                <td>  </td>
             </tr>
 
 
@@ -95,5 +98,30 @@
         </table>
     </div>
 
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endsection
 
+<script>
+        
+</script>

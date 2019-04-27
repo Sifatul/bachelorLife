@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 class WalletController extends Controller
 {
 
+    public function loadModal($id)
+{
+    // write your process if any
+    return view('home',['data'=>'lol']);
+}
+
     public function index()
     {
 //         $all_cat = DB::table("expense_cats")->select('*')

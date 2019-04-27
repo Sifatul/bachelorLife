@@ -14,6 +14,11 @@
 
 Route::middleware(['web'])->group(function () {
 
+    Route::get('dynamicModal/{id}',[
+        'as'=>'dynamicModal',
+        'uses'=> 'WalletController@loadModal'
+    ]);
+
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/signin','userController@userSignIn');
 
