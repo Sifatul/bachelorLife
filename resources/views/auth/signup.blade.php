@@ -33,9 +33,10 @@
             <button type="submit" class="btn btn-primary">Sign up</button>
 
             @csrf
+            <div class="dropdown-divider"></div>
+        <div class=" " >Already have account? <a href="{{url('/')}}">Sign In</a></div>
         </form>
-        <div class="dropdown-divider"></div>
-        <div class="dropdown-item" >Already have account? <a href="{{url('/')}}">Sign In</a></div>
+        
     </div>
 
 @endsection
