@@ -14,9 +14,10 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Expense Category</label>
-                        <select name="category" class="form-control" id="exampleFormControlSelect1">
-                            @foreach ($all_cat_slug as $cat)
-                                <option>{{  $cat->cat_name }}</option>
+                        
+                        <select name="category_id" class="form-control" id="exampleFormControlSelect1">
+                            @foreach ($all_cat_slug as $cat) 
+                                <option value="{{ $cat->cat_id }}">{{ $cat->cat_name }}</option>
                             @endforeach
                         </select>
                     </div>

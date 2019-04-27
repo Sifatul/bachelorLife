@@ -11,12 +11,10 @@ class BillController extends Controller
 
     public function newBill(Request $request)
     {
-
-        $cat_name = $request->category;
-        $cat_id = DB::table('expense_categories')->where('cat_name', $cat_name)->value('id');
+  
         $Bill = new Bill();
         $Bill->user_id = auth()->user()->id;
-        $Bill->cat_id = $cat_id;
+        $Bill->cat_id = $request->category_id;  
         $Bill->amount = $request->amount;
         $Bill->save();
 //        DB::table('bills')->insert(
@@ -25,6 +23,21 @@ class BillController extends Controller
 //        $all_cat_slug = DB::table('expense_categories')->orderBy('cat_name')->distinct()->get()->all();
 //        return view('home')->with('all_cat_slug',  $all_cat_slug);
         return redirect()->action('HomeController@index');
+    }
+    public function editBill(Request $request){
+
+
+         
+      
+       
+        $Bill =  Bill::find($request->expense_id); 
+        // return  $Bill ;
+        $Bill->cat_id =  $request->category_id;
+        $Bill->amount = $request->amount; 
+        $Bill->save();
+ 
+        return redirect()->action('HomeController@index');
+
     }
     public function allBills(){
 //        $all_cat_slug = DB::table('expense_categories')->orderBy('cat_name')->distinct()->get()->all();

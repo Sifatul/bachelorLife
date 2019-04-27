@@ -34,6 +34,7 @@ Route::middleware(['web','auth'])->group(function () {
 
     // Route::get('/wallet','WalletController@index')->name('wallet');
     Route::post('/new_bill','BillController@newBill');
+    Route::post('/edit_bill','BillController@editBill');
     Route::get('/bills','BillController@allBills');
     // Route::post('/settings','userController@saveSettings')->name('saveSettings');
 });

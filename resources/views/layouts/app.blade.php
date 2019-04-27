@@ -13,7 +13,7 @@
 
     </main>
 </div>
-
+<script src="{{asset('public/js/style.js')}}"></script>
 <script src="{{'public/Dashboard Template for Bootstrap_files/feather.min.js.download'}}"></script>
 <script>
     feather.replace()
