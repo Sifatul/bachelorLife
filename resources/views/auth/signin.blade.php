@@ -39,10 +39,17 @@
                     <i class="fas fa-sign-in-alt"></i>
                 </button>
                 @csrf
+                <div class="form-group">
+                    <div class="dropdown-divider"></div>
+                    <div class="">Already have account? <a href="{{url('/signup')}}">Sign Up</a></div>
+                    <a class=" " href="#">Forgot password?</a>
+                </div>
             </form>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item">Already have account? <a href="{{url('/signup')}}">Sign Up</a></div>
-            <a class="dropdown-item" href="#">Forgot password?</a>
+            
+
+          
+           
+            <!-- <a class="dropdown-item" href="#">Forgot password?</a> -->
 
         </div> 
 
