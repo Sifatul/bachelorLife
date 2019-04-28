@@ -14,11 +14,7 @@
 
 Route::middleware(['web'])->group(function () {
 
-    Route::get('dynamicModal/{id}',[
-        'as'=>'dynamicModal',
-        'uses'=> 'WalletController@loadModal'
-    ]);
-
+ 
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/signin','userController@userSignIn');
 
@@ -31,12 +27,10 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::middleware(['web','auth'])->group(function () {
-
-    // Route::get('/wallet','WalletController@index')->name('wallet');
     Route::post('/new_bill','BillController@newBill');
     Route::post('/edit_bill','BillController@editBill');
-    Route::get('/bills','BillController@allBills');
-    // Route::post('/settings','userController@saveSettings')->name('saveSettings');
+    Route::get('/delete_bill/{id}','BillController@delete');
+    Route::get('/bills','BillController@allBills'); 
 });
 
 //Auth::routes();

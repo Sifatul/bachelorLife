@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class BillController extends Controller
 {
+    public function index(){
+        
+    }
 
     public function newBill(Request $request)
     {
@@ -24,11 +27,7 @@ class BillController extends Controller
 //        return view('home')->with('all_cat_slug',  $all_cat_slug);
         return redirect()->action('HomeController@index');
     }
-    public function editBill(Request $request){
-
-
-         
-      
+    public function editBill(Request $request){       
        
         $Bill =  Bill::find($request->expense_id); 
         // return  $Bill ;
@@ -51,5 +50,12 @@ class BillController extends Controller
             ->where('bills.user_id', 1)
             ->get();
         return view('bills')->with('all_bills',  $all_bills);
+    }
+    public function delete($id){ 
+        $Bill = Bill::find($id);
+        
+        $Bill->delete();
+        return redirect('/');
+
     }
 }

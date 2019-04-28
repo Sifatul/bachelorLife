@@ -74,7 +74,7 @@
                 <?php $total += $bill->amount; ?>
                 <tr> 
                     <td>{{  $loop->index }}</td>
-                    <td>{{  $bill->updated_at }}</td>
+                    <td>{{  $bill->created_at }}</td>
                     <td>{{  $bill->cat_name }}</td>
                     <td>{{  $bill->amount }} </td>
                     
@@ -84,7 +84,8 @@
                          data-expense-cat_id= "{{  $bill->cat_id }}" data-expense-amount= "{{  $bill->amount }}"
                          data-expense-id= "{{  $bill->id }}">
                         </i>
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <a href="{{ url('/delete_bill/'.$bill->id) }}" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        
                     </td>
                 </tr>
             @endforeach
