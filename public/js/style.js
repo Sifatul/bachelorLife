@@ -8,13 +8,12 @@ $( ".nav-link" ).click(function() {
 $(document).on('shown.bs.modal','.modal', function (event) {
     // $('#exampleModal').on('show.bs.modal', function (event) {    
   var button = $(event.relatedTarget) // Button that triggered the modal
-  var cat_id_old = button.data('expense-cat_id') // cat of the of data
-  var edit_amount = button.data('expense-amount')   // amount of the of data
-  var expense_id = button.data('expense-id')   // id of the of data in db
-  var modal = $(this)
+  var cat_id_old = button.data('expense-cat_id') // cat of the bill
+  var edit_amount = button.data('expense-amount')   // amount of the bill
+  var expense_id = button.data('expense-id')   // unique id of the bill
+  var modal = $(this)  
 
-//   console.log(cat_id);
-
-  modal.find('.modal-body .edit-expense-id').val(expense_id) 
+  $('#edit_expense_select_cat option[value='+cat_id_old+']').attr('selected','selected'); //option selected
+   modal.find('.modal-body .edit-expense-id').val(expense_id) 
   modal.find('.modal-body  .edit-expense_amount').val(edit_amount)
 })

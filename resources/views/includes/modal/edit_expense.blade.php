@@ -12,14 +12,9 @@
               <div class="modal-body">
                   <div class="form-group">
                       <label for="exampleFormControlSelect1">Expense Category</label>
-                      <select name="category_id" class="form-control" id="exampleFormControlSelect1">
-                          @foreach ($all_cat_slug as $cat)                         
-                            <!-- @if ( $cat->cat_id == '12') 
-                                  <option  selected value="{{ $cat->cat_id }}">{{  $cat->cat_name }}</option>
-                            @else
-                              <option value="{{ $cat->cat_id }}" >{{  $cat->cat_name }}</option>
-                            @endif -->
-                            <option value="{{ $cat->cat_id }}" >{{  $cat->cat_name }}</option>
+                      <select name="category_id" class="form-control" id="edit_expense_select_cat">
+                          @foreach ($all_cat_slug as $cat)
+                            <option value="{{$cat->cat_id}}" >{{  $cat->cat_name }}</option>
                           @endforeach
                       </select>
                   </div>
