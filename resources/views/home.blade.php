@@ -16,6 +16,7 @@
     </div>
 
     <div class="row pb-2 mb-3">
+    @if($individual_sum_bills) 
         @foreach ($individual_sum_bills as $single_sum)
             <div class="card">
                 <div class="card-body card-body-dashboard">
@@ -51,10 +52,12 @@
                 </div>
             </div>
         @endforeach
+    @endif
 
     </div>
 
     <div class="table-responsive">
+    @if( count($each_bill)) 
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -69,7 +72,7 @@
             <tbody>
 
             <?php $total = 0; ?>
-
+            
             @foreach ($each_bill as $bill)
                 <?php $total += $bill->amount; ?>
                 <tr> 
@@ -100,6 +103,7 @@
 
             </tbody>
         </table>
+    @endif
     </div>
     @include('includes.modal.new_expense')
     @include('includes.modal.edit_expense')

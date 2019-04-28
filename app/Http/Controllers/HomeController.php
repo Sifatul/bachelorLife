@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Bill;
 
 class HomeController extends Controller
 {
@@ -33,14 +34,17 @@ class HomeController extends Controller
                 ->where('user_id', Auth::user()->id)
                 ->groupBy('expense_categories.id')
                 ->get();
-      
+                // return $individual_sum_bills;
 
             // everyday bill
             $each_bill = DB::table('expense_categories')
                         ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
                         ->where('user_id', Auth::user()->id)
                         ->get();
-                    //  return $each_bill;
+
+            // $each_bill = Bill::take(2)->get()->where('user_id', Auth::user()->id)->first();
+            // return $each_bill;
+
             return view('home')
                 ->with('all_cat_slug', $all_cat_slug) 
                 ->with('each_bill',  $each_bill)
