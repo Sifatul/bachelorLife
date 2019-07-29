@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@include('includes.new_expense')
 @section('content')
+ 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -16,8 +16,8 @@
     </div>
 
     <div class="row pb-2 mb-3">
+    @if($individual_sum_bills) 
         @foreach ($individual_sum_bills as $single_sum)
-
             <div class="card">
                 <div class="card-body card-body-dashboard">
                     @switch($single_sum->cat_name)
@@ -52,14 +52,17 @@
                 </div>
             </div>
         @endforeach
+    @endif
 
     </div>
 
     <div class="table-responsive">
+    @if( count($each_bill)) 
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th>#</th>
+                <th>Date</th>
                 <th>Reason</th>
                 <th>Amount</th>
                 <th>Action</th>
@@ -68,29 +71,44 @@
             </thead>
             <tbody>
 
-
-            @foreach ($all_bills as $bill)
-                <tr>
+            <?php $total = 0; ?>
+            
+            @foreach ($each_bill as $bill)
+                <?php $total += $bill->amount; ?>
+                <tr> 
                     <td>{{  $loop->index }}</td>
+                    <td>{{  $bill->created_at }}</td>
                     <td>{{  $bill->cat_name }}</td>
-                    <td>{{  $bill->amount }}</td>
+                    <td>{{  $bill->amount }} </td>
+                    
                     <td>
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" 
+                         data-toggle="modal" data-target="#exampleModal" 
+                         data-expense-cat_id= "{{  $bill->cat_id }}" data-expense-amount= "{{  $bill->amount }}"
+                         data-expense-id= "{{  $bill->id }}">
+                        </i>
+                        <a href="{{ url('/delete_bill/'.$bill->id) }}" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        
                     </td>
                 </tr>
             @endforeach
             <tr>
                 <td> <strong>Total</strong></td>
                 <td> </td>
-                <td><strong>{{  $total_bill}}</strong></td>
                 <td> </td>
+                <td>
+                    <strong > <?php echo $total  ?></strong></td> 
+                <td>  </td>
             </tr>
-
 
             </tbody>
         </table>
+    @endif
     </div>
+    @include('includes.modal.new_expense')
+    @include('includes.modal.edit_expense')
 
 @endsection
+
+
 
