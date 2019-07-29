@@ -33,7 +33,9 @@ class userController extends Controller
         $user->id = $request->id;
         $user->save();
         Auth::login($user);
-        return view('home');
+
+        return redirect('/');
+        // return view('home');
 
     }
 

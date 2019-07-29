@@ -39,7 +39,7 @@ class HomeController extends Controller
                 ->where('user_id', Auth::user()->id)
                 ->groupBy('expense_categories.id')
                 ->get();
-//            return $individual_sum_bills;
+        //    return $individual_sum_bills;
 
 
 
