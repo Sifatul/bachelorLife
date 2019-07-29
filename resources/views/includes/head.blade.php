@@ -10,5 +10,7 @@
     {{--    <link rel="stylesheet" type="text/css" href="{{asset('public/fontawesome/css/all.min.css')}}">--}}
     <link rel="stylesheet" type="text/css" href="{{asset('public/Dashboard Template for Bootstrap_files/dashboard.css')}}">
 {{--    javascripta--}}
+
+<script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
     
 </head>
