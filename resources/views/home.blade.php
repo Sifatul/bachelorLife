@@ -82,7 +82,7 @@
                     <td>{{  $bill->amount }} </td>
                     
                     <td>
-                        <i class="fa fa-pencil-square-o" aria-hidden="true" 
+                        <i class="edit fa fa-pencil-square-o" aria-hidden="true" 
                          data-toggle="modal" data-target="#exampleModal" 
                          data-expense-cat_id= "{{  $bill->cat_id }}" data-expense-amount= "{{  $bill->amount }}"
                          data-expense-id= "{{  $bill->id }}">

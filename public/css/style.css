@@ -1,115 +1,128 @@
 html,
 body {
-    margin: 0;
-    height: 100%;
-    background: white;
-    /* background: #f8f9fa; */
+  margin: 0;
+  height: 100%;
+  background: white;
+  /* background: #f8f9fa; */
 }
 
 .row {
-    margin: 0;
+  margin: 0;
 }
 
 .navbar-static-top {
-    z-index: 999;
+  z-index: 999;
 }
 
 .form-container {
-    background: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #394a51;
-    border-radius: 5px;
-    border-width: 0.5px 0.5px 0.5px 1px;
-    padding: 12px;
-    max-width: 20%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #394a51;
+  border-radius: 5px;
+  border-width: 0.5px 0.5px 0.5px 1px;
+  padding: 12px;
+  max-width: 20%;
 }
 
 .navbar-dark .navbar-brand {
-    color: #fdc57b;
-    font-size: 15px;
+  color: #fdc57b;
+  font-size: 15px;
 }
 
 .header_dropdown .dropdown-menu {
-    position: absolute;
-    left: -140px;
+  position: absolute;
+  left: -140px;
 }
 
 .navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.active,
 .navbar-dark .navbar-nav .nav-link.show,
 .navbar-dark .navbar-nav .show > .nav-link {
-    color: black;
-    font-size: 14px;
+  color: black;
+  font-size: 14px;
 }
 
 #signOutButton {
-    color: white;
-    font-size: 16px;
+  color: white;
+  font-size: 16px;
 }
 
 .dropdown-menu {
-    padding: 0.1rem;
+  padding: 0.1rem;
 }
 
 .card-body-dashboard {
-    text-align: center;
+  text-align: center;
 }
 
 .card {
-    width: 150px;
+  width: 150px;
 }
 
 .card:not(:nth-child(1)) {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .card-body-dashboard i {
-    font-size: 50px;
+  font-size: 50px;
+}
+
+.container-fluid .table-responsive .fa-trash-o,
+.container-fluid .table-responsive .fa-pencil-square-o{
+    color:black;
+    font-weight: bold;
+}
+.container-fluid .table-responsive .fa-trash-o:hover {
+  color: red;
+}
+.container-fluid .table-responsive .fa-pencil-square-o:hover {
+  color: #007bff;
 }
 
 section {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
-.table-sm td:nth-last-child(1),.table-sm th:nth-last-child(1) {
-    text-align: center;
-    width: 100px;
+.table-sm td:nth-last-child(1),
+.table-sm th:nth-last-child(1) {
+  text-align: center;
+  width: 100px;
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-    .form-container {
-        max-width: 35%;
-    }
+  .form-container {
+    max-width: 35%;
+  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    .form-container {
-        max-width: 35%;
-    }
+  .form-container {
+    max-width: 35%;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .form-container {
-        max-width: 30%;
-    }
+  .form-container {
+    max-width: 30%;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-    .form-container {
-        max-width: 30%;
-    }
+  .form-container {
+    max-width: 30%;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-    .form-container {
-        max-width: 400px;
-    }
+  .form-container {
+    max-width: 400px;
+  }
 }
