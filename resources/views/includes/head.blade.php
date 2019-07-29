@@ -1,8 +1,7 @@
 <head>
     <title>@yield('title')</title>
 
-    <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet"        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{asset('public/css/style.css')}}">
 
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
