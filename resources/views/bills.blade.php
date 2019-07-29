@@ -4,12 +4,20 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">History</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
-         
-        <button class="btn btn-sm btn-outline-secondary " data-toggle="modal" data-target="#addExpenseModal">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Expense
+
+    @if($all_bills)
+        <button class="btn btn-sm btn-outline-secondary" id ="start_date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{date('Y-m-d ', strtotime($all_bills->min('created_at')))   }}
         </button>
+ 
+        <button class="btn btn-sm btn-outline-secondary ml-1 " id ="end_date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{date('Y-m-d ', strtotime($all_bills->max('created_at')))   }}          
+        </button>
+        @endif
     </div>
+
 </div>
 
 <div class="row pb-2 mb-3">

@@ -6,6 +6,7 @@ use App\Bill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class BillController extends Controller
 {
@@ -34,24 +35,27 @@ class BillController extends Controller
     }
     public function allBills()
     {
+        $now = Carbon::now();
         // all categories of new expenses
         $all_cat_slug = DB::table('expense_categories')->select('id as cat_id', 'cat_name')->orderBy('cat_name')->distinct()->get()->all();
 
         $individual_sum_bills = DB::table('expense_categories')
                 ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
                 ->select('expense_categories.cat_name', 'expense_categories.id',  DB::raw('SUM(amount) AS total'))
-                ->where('user_id', Auth::user()->id)             
+                ->where('user_id', Auth::user()->id)  
+                ->whereMonth('bills.created_at', '<', $now->month)           
                 ->groupBy('expense_categories.id')
                 ->get();
 
                    
-                // ->whereYear('bills.created_at', '=', $now->year)
+                
                 // ->whereMonth('bills.created_at', '=', $now->month)
 
         $all_bills = DB::table('expense_categories')
             ->select('*')
             ->join('bills', 'expense_categories.id', '=', 'bills.cat_id')
             ->where('bills.user_id', auth()->user()->id)
+            ->whereMonth('bills.created_at', '<', $now->month)
             ->simplePaginate(10) ;
 
             // return $all_bills;
