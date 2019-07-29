@@ -3,59 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BillController extends Controller
 {
-    public function index(){
-        
-    }
+    public function index()
+    { }
 
     public function newBill(Request $request)
     {
-  
+
         $Bill = new Bill();
         $Bill->user_id = auth()->user()->id;
-        $Bill->cat_id = $request->category_id;  
+        $Bill->cat_id = $request->category_id;
+        $Bill->amount = $request->amount;
+        $Bill->save(); 
+        return redirect()->action('HomeController@index');
+    }
+    public function editBill(Request $request)
+    {
+
+        $Bill =  Bill::find($request->expense_id);
+        $Bill->cat_id =  $request->category_id;
         $Bill->amount = $request->amount;
         $Bill->save();
-//        DB::table('bills')->insert(
-//            ['user_id' => $user_id, 'cat_id' => $cat_id, 'amount'=> $amount]
-//        );
-//        $all_cat_slug = DB::table('expense_categories')->orderBy('cat_name')->distinct()->get()->all();
-//        return view('home')->with('all_cat_slug',  $all_cat_slug);
-        return redirect()->action('HomeController@index');
-    }
-    public function editBill(Request $request){       
-       
-        $Bill =  Bill::find($request->expense_id); 
-        // return  $Bill ;
-        $Bill->cat_id =  $request->category_id;
-        $Bill->amount = $request->amount; 
-        $Bill->save();
- 
-        return redirect()->action('HomeController@index');
 
+        return redirect()->action('HomeController@index');
     }
-    public function allBills(){
-//        $all_cat_slug = DB::table('expense_categories')->orderBy('cat_name')->distinct()->get()->all();
-//        $total_bill = DB::table('bills')
-//            ->sum('amount');
-//        return view('home')
+    public function allBills()
+    {
+        // all categories of new expenses
+        $all_cat_slug = DB::table('expense_categories')->select('id as cat_id', 'cat_name')->orderBy('cat_name')->distinct()->get()->all();
+
+        $individual_sum_bills = DB::table('expense_categories')
+                ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
+                ->select('expense_categories.cat_name', 'expense_categories.id',  DB::raw('SUM(amount) AS total'))
+                ->where('user_id', Auth::user()->id)             
+                ->groupBy('expense_categories.id')
+                ->get();
+
+                   
+                // ->whereYear('bills.created_at', '=', $now->year)
+                // ->whereMonth('bills.created_at', '=', $now->month)
 
         $all_bills = DB::table('expense_categories')
             ->select('*')
             ->join('bills', 'expense_categories.id', '=', 'bills.cat_id')
-            ->where('bills.user_id', 1)
-            ->get();
-        return view('bills')->with('all_bills',  $all_bills);
+            ->where('bills.user_id', auth()->user()->id)
+            ->simplePaginate(10) ;
+
+            // return $all_bills;
+
+        return view('bills')
+            ->with('all_bills',  $all_bills)
+            ->with('all_cat_slug', $all_cat_slug)
+            ->with('individual_sum_bills', $individual_sum_bills);
+            
     }
-    public function delete($id){ 
+    public function delete($id)
+    {
         $Bill = Bill::find($id);
-        
+
         $Bill->delete();
         return redirect('/');
-
     }
 }
