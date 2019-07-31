@@ -142,9 +142,9 @@ class BillController extends Controller
         // everyday bill (cat joined with bill)
         $each_bill = DB::table('expense_categories')
             ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id',$user_id)
             ->whereMonth('bills.created_at', '=', $start_time->month)
-            ->take(100)
+            ->take(500)
             ->get();
             // ->simplePaginate(20);
  

@@ -1,33 +1,33 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">History</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
 
-    @if($all_bills)
-    <button class="btn btn-sm  mr-1 " id ="end_date"> <strong>FROM</strong> </button>
- 
-        <button class="btn btn-sm btn-outline-secondary" id ="start_date">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+    <div class="toolbar_date_range ">
+
+        <button class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </button>
+
+        <button class="btn btn-sm btn-outline-secondary" id="start_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($all_bills->min('created_at')))   }}
+            {{date('Y-m-d ', strtotime($start_time))   }}
         </button>
 
-        <button class="btn btn-sm  ml-1 " id ="end_date"> <strong>TO</strong> </button>
- 
-        <button class="btn btn-sm btn-outline-secondary ml-1 " id ="end_date">
+        <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
+
+        <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($all_bills->max('created_at')))   }}          
+            {{date('Y-m-d ', strtotime($end_time))   }}
         </button>
-        @endif
+
     </div>
 
 </div>
 
-<div class="row pb-2 mb-3">
+<div class="row pb-0  ">
     @if($individual_sum_bills)
     @foreach ($individual_sum_bills as $single_sum)
-    <div class="card">
+    <div class="card mt-2">
         <div class="card-body card-body-dashboard">
             @switch($single_sum->cat_name)
             @case('Rent')
@@ -66,9 +66,18 @@
 </div>
 
 
-
+<div class="mt-4 mb-2">
+    <!-- {{-- <div class="btn-group mr-2">
+              <button class="btn btn-sm btn-outline-secondary">Share</button>
+              <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div> --}} -->
+    <button class="btn btn-sm btn-outline-secondary " data-toggle="modal" data-target="#addExpenseModal">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Expense
+    </button>
+</div>
 <div class="table-responsive">
-    @if( count($all_bills))
+    @if( count($each_bill))
     <table class="table table-striped table-sm">
         <thead>
             <tr>
@@ -76,7 +85,7 @@
                 <th>Date</th>
                 <th>Reason</th>
                 <th>Amount</th>
-                <!-- <th>Action</th> -->
+                <th>Action</th>
 
             </tr>
         </thead>
@@ -84,23 +93,22 @@
 
             <?php $total = 0; ?>
 
-            @foreach ($all_bills as $bill)
+            @foreach ($each_bill as $bill)
             <?php $total += $bill->amount; ?>
             <tr>
                 <td>{{ $loop->index }}</td>
-                <td>{{ date('Y-m-d ', strtotime($bill->created_at)) }}</td>
+
+                <td>
+                    {{date('Y-m-d ', strtotime( $bill->created_at))   }} </td>
                 <td>{{ $bill->cat_name }}</td>
                 <td>{{ $bill->amount }} </td>
 
-                <!-- <td>
-                        <i class="fa fa-pencil-square-o" aria-hidden="true" 
-                         data-toggle="modal" data-target="#exampleModal" 
-                         data-expense-cat_id= "{{  $bill->cat_id }}" data-expense-amount= "{{  $bill->amount }}"
-                         data-expense-id= "{{  $bill->id }}">
-                        </i>
-                        <a href="{{ url('/delete_bill/'.$bill->id) }}" >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </a> -->
+                <td>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#exampleModal" data-expense-cat_id="{{  $bill->cat_id }}" data-expense-amount="{{  $bill->amount }}" data-expense-id="{{  $bill->id }}">
+                    </i>
+                    <a href="{{ url('/delete_bill/'.$bill->id) }}">
+                        <i class="fa fa-trash-o ml-2" aria-hidden="true"></i>
+                    </a>
 
                 </td>
             </tr>
@@ -111,15 +119,17 @@
                 <td> </td>
                 <td>
                     <strong> <?php echo $total  ?></strong></td>
-                <!-- <td>  </td> -->
+                <td> </td>
             </tr>
 
         </tbody>
     </table>
-
-    {{ $all_bills->links() }}
+    <!-- {{ $each_bill->links() }} -->
     @endif
 </div>
-
+@include('includes.modal.new_expense')
+@include('includes.modal.edit_expense')
+<script src=" {{asset('public/js/jquery.min.js')}}"></script>
+<script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
 
 @endsection

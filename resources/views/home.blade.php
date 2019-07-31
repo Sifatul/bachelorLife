@@ -124,7 +124,8 @@
 
         </tbody>
     </table>
-    
+   
+        {{ $each_bill->links() }}
     @endif
 </div>
 @include('includes.modal.new_expense')

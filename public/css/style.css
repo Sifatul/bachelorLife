@@ -91,6 +91,9 @@ body {
 .container-fluid .table-responsive .fa-pencil-square-o:hover{
   font-weight: bolder;
 }
+.inline_form{
+  display: inline !important;
+}
 
 .no-bg_btn{
   background: transparent;
