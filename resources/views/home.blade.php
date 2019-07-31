@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">
     <h1 class="h2">Dashboard</h1>
     <div class="toolbar_date_range ">
 
@@ -10,24 +10,24 @@
 
         <button class="btn btn-sm btn-outline-secondary" id="start_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($each_bill->min('created_at')))   }}
+            {{date('Y-m-d ', strtotime($start_time))   }}
         </button>
 
         <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
 
         <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($each_bill->max('created_at')))   }}
+            {{date('Y-m-d ', strtotime($end_time))   }}
         </button>
 
     </div>
 
 </div>
 
-<div class="row pb-0 mb-0 ">
+<div class="row pb-0  ">
     @if($individual_sum_bills)
     @foreach ($individual_sum_bills as $single_sum)
-    <div class="card">
+    <div class="card mt-2">
         <div class="card-body card-body-dashboard">
             @switch($single_sum->cat_name)
             @case('Rent')
@@ -107,7 +107,7 @@
                     <i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#exampleModal" data-expense-cat_id="{{  $bill->cat_id }}" data-expense-amount="{{  $bill->amount }}" data-expense-id="{{  $bill->id }}">
                     </i>
                     <a href="{{ url('/delete_bill/'.$bill->id) }}">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i class="fa fa-trash-o ml-2" aria-hidden="true"></i>
                     </a>
 
                 </td>
@@ -124,7 +124,7 @@
 
         </tbody>
     </table>
-    {{ $each_bill->links() }}
+    
     @endif
 </div>
 @include('includes.modal.new_expense')
