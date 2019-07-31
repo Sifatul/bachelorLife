@@ -1,21 +1,30 @@
 @extends('layouts.app')
 @section('content')
 
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Dashboard</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        {{-- <div class="btn-group mr-2">
-              <button class="btn btn-sm btn-outline-secondary">Share</button>
-              <button class="btn btn-sm btn-outline-secondary">Export</button>
-            </div> --}}
-        <button class="btn btn-sm btn-outline-secondary " data-toggle="modal" data-target="#addExpenseModal">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Expense
+    <div class="toolbar_date_range ">
+
+        <button class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </button>
+
+        <button class="btn btn-sm btn-outline-secondary" id="start_date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{date('Y-m-d ', strtotime($each_bill->min('created_at')))   }}
         </button>
+
+        <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
+
+        <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{date('Y-m-d ', strtotime($each_bill->max('created_at')))   }}
+        </button>
+
     </div>
+
 </div>
 
-<div class="row pb-2 mb-3">
+<div class="row pb-0 mb-0 ">
     @if($individual_sum_bills)
     @foreach ($individual_sum_bills as $single_sum)
     <div class="card">
@@ -56,6 +65,17 @@
 
 </div>
 
+
+<div class="mt-4 mb-2">
+    <!-- {{-- <div class="btn-group mr-2">
+              <button class="btn btn-sm btn-outline-secondary">Share</button>
+              <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div> --}} -->
+    <button class="btn btn-sm btn-outline-secondary " data-toggle="modal" data-target="#addExpenseModal">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Expense
+    </button>
+</div>
 <div class="table-responsive">
     @if( count($each_bill))
     <table class="table table-striped table-sm">
@@ -77,9 +97,9 @@
             <?php $total += $bill->amount; ?>
             <tr>
                 <td>{{ $loop->index }}</td>
-                
+
                 <td>
-                {{date('Y-m-d ', strtotime( $bill->created_at))   }}  </td>
+                    {{date('Y-m-d ', strtotime( $bill->created_at))   }} </td>
                 <td>{{ $bill->cat_name }}</td>
                 <td>{{ $bill->amount }} </td>
 
@@ -109,7 +129,7 @@
 </div>
 @include('includes.modal.new_expense')
 @include('includes.modal.edit_expense')
-<script src=" {{asset('public/js/jquery.min.js')}}"></script> 
-    <script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
+<script src=" {{asset('public/js/jquery.min.js')}}"></script>
+<script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
 
 @endsection

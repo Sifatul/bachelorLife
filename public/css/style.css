@@ -61,7 +61,13 @@ body {
 .card {
   width: 150px;
 }
-
+.card:hover {
+  background: #394a51
+}
+.card:hover .card-body-dashboard i,
+.card:hover .card-body-dashboard .card-title{
+  color:white; 
+} 
 .card:not(:nth-child(1)) {
   margin-left: 15px;
 }
@@ -70,17 +76,26 @@ body {
   font-size: 50px;
 }
 
-.container-fluid .table-responsive .fa-trash-o,
-.container-fluid .table-responsive .fa-pencil-square-o{
-    color:black;
-    font-weight: bold;
-}
-.container-fluid .table-responsive .fa-trash-o:hover {
+
+ 
+.container-fluid .table-responsive .fa-trash-o {
   color: red;
+  font-weight: bold;
 }
-.container-fluid .table-responsive .fa-pencil-square-o:hover {
+.container-fluid .table-responsive .fa-pencil-square-o,
+.sidebar .fa-book:hover {
   color: #007bff;
+  font-weight: 200;
 }
+.container-fluid .table-responsive .fa-trash-o:hover,
+.container-fluid .table-responsive .fa-pencil-square-o:hover{
+  font-weight: bolder;
+}
+
+.no-bg_btn{
+  background: transparent;
+}
+
 
 section {
   padding-bottom: 20px;
