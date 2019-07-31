@@ -122,7 +122,7 @@ class BillController extends Controller
         $user_id = $request->user_id;
         $start_time = $request->start_time;
         $end_time = $request->end_time;
-        $now = Carbon::now();
+        
 
 
         // all categories of new expenses

@@ -10,14 +10,14 @@
 
         <button class="btn btn-sm btn-outline-secondary" id="start_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($start_time))   }}
+            {{  $start_time  }}
         </button>
 
         <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
 
         <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            {{date('Y-m-d ', strtotime($end_time))   }}
+            {{ $end_time }}
         </button>
 
     </div>
