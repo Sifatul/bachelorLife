@@ -6,10 +6,14 @@
     <div class="btn-toolbar mb-2 mb-md-0">
 
     @if($all_bills)
+    <button class="btn btn-sm  mr-1 " id ="end_date"> <strong>FROM</strong> </button>
+ 
         <button class="btn btn-sm btn-outline-secondary" id ="start_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
             {{date('Y-m-d ', strtotime($all_bills->min('created_at')))   }}
         </button>
+
+        <button class="btn btn-sm  ml-1 " id ="end_date"> <strong>TO</strong> </button>
  
         <button class="btn btn-sm btn-outline-secondary ml-1 " id ="end_date">
             <i class="fa fa-calendar" aria-hidden="true"></i>

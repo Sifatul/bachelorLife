@@ -17,12 +17,12 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link {{ Request::path() == 'bills' ? ' active' : ' ' }} " href="{{url('bills')}}">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     Bills
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </nav>

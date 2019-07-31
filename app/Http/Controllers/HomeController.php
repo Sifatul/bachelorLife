@@ -2,26 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Bill;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+{ 
 
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     
     public function index()
     {
         if (Auth::check()) {
@@ -47,8 +35,7 @@ class HomeController extends Controller
                 ->where('user_id', Auth::user()->id)
                 ->whereYear('bills.created_at', '=', $now->year)
                 ->whereMonth('bills.created_at', '=', $now->month)
-                ->get();
-
+                ->simplePaginate(20) ;
             // $each_bill = Bill::take(2)->get()->where('user_id', Auth::user()->id)->first();
             // return $each_bill;
 
