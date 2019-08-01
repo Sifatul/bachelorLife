@@ -12,18 +12,12 @@
 */
 
 
-Route::middleware(['web'])->group(function () {
-
- 
+Route::middleware(['web'])->group(function () { 
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/signin','userController@userSignIn');
-
     Route::get('/signup', 'userController@signup')->name('signup');
     Route::post('/signup','userController@userSingUp');
-
     Route::get('/logout','userController@logout')->name('logout');
-
-
 });
 
 Route::middleware(['web','auth'])->group(function () {
@@ -38,6 +32,8 @@ Route::middleware(['web','auth'])->group(function () {
     Route::post('api/update_bill/{id}','Api\BillController@update');
     Route::GET('api/delete/{id}','Api\BillController@delete');
     // Route::get('api/bills','Api\BillController@allBills'); 
-    Route::GET('api/show_list/{id}','Api\BillController@showList');
+    Route::GET('api/show_list/{id}','Api\BillController@showList');    
+    Route::post('api/user_login','Api\UserController@login'); 
+    Route::post('api/user_store','Api\UserController@store'); 
 });
-
+ 

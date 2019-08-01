@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 Use Illuminate\Support\Facades\DB;
-use function MongoDB\BSON\toJSON;
+use function MongoDB\BSON\toJSON; 
 
 class userController extends Controller
 {
@@ -18,22 +19,11 @@ class userController extends Controller
     }
 
     public function userSingUp(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|unique:users',
-            'name' => 'required|max:120',
-            'password' => 'required|min:4'
-        ]);
+    {      
 
-        $password = bcrypt($request->password);
-        $user = new User();
-        $user->email = $request->email;
-        $user->password = $password;
-        $user->name = $request->name;
-        $user->id = $request->id;
-        $user->save();
-        Auth::login($user);
-        return view('home');
+        $request = Request::create('api/user_store', 'POST', $request->toArray());
+        $res = Route::dispatch($request);  
+        return   redirect('/');  
 
     }
 
@@ -44,16 +34,9 @@ class userController extends Controller
             'password' => 'required|min:4'
         ]);
 
-
-        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
-            return redirect()->intended('/');
-        } else {
-            if (User::where('email', $request['email'])->first()) {
-                return redirect()->back()->with('auth_failed', ['Wrong password ']);
-            } else {
-                return redirect()->back()->with('auth_failed', ['Wrong email ']);
-            }
-        }
+        $request = Request::create('api/user_login', 'POST', $request->toArray());
+        $res = Route::dispatch($request);  
+        return redirect('/'); 
     }
 
     public function signup(){
@@ -62,8 +45,13 @@ class userController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-        return redirect('/');
+        return redirect('/')->with(Auth::logout());
+        // $request = Request::create('api/logout','GET',[]);
+        // $response = Route::dispatch($request);
+        // echo $response;
+        // return $response;
+        // Auth::logout();
+        // return redirect('/');
     }
 
 
