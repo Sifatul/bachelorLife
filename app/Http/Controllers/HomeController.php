@@ -2,57 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Bill;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Pagination\Paginator;
+
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
 
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if (Auth::check()) {
 
-            // all categories of new expenses
-            $all_cat_slug = DB::table('expense_categories')->select('id as cat_id','cat_name')->orderBy('cat_name')->distinct()->get()->all();
-                     //sum of all bills in each categories
-            $individual_sum_bills = DB::table('expense_categories')
-                ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
-                ->select('expense_categories.cat_name','expense_categories.id',  DB::raw('SUM(amount) AS total'))
-                ->where('user_id', Auth::user()->id)
-                ->groupBy('expense_categories.id')
-                ->get();
-                // return $individual_sum_bills;
-
-            // everyday bill
-            $each_bill = DB::table('expense_categories')
-                        ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
-                        ->where('user_id', Auth::user()->id)
-                        ->get();
-
-            // $each_bill = Bill::take(2)->get()->where('user_id', Auth::user()->id)->first();
-            // return $each_bill;
-
+            $req = Request::create('api/show_list/' . Auth::user()->id, 'GET',   []);
+            $response = Route::dispatch($req);   
+            // return json_encode($response->getData()->start_time->date,true);
+            $pagination_each_bill = new Paginator($response->getData()->each_bill, 10);
+            $start_time = date('Y-m-d',strtotime($response->getData()->start_time->date));
+             
             return view('home')
-                ->with('all_cat_slug', $all_cat_slug) 
-                ->with('each_bill',  $each_bill)
-                ->with('individual_sum_bills',$individual_sum_bills);
+                ->with('all_cat_slug',  $response->getData()->all_cat_slug )
+                ->with('each_bill', $pagination_each_bill)
+                ->with('individual_sum_bills', $response->getData()->individual_sum_bills)
+                ->with('start_time',$start_time)
+                ->with('end_time',$response->getData()->end_time);
         } else {
             return view('auth/signin');
         }
     }
-
-
 }
