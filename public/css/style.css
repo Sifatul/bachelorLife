@@ -68,9 +68,7 @@ body {
 .card:hover .card-body-dashboard .card-title{
   color:white; 
 } 
-.card:not(:nth-child(1)) {
-  margin-left: 15px;
-}
+
 
 .card-body-dashboard i {
   font-size: 50px;
@@ -81,11 +79,13 @@ body {
 .container-fluid .table-responsive .fa-trash-o {
   color: red;
   font-weight: bold;
+  font-size: medium;
 }
 .container-fluid .table-responsive .fa-pencil-square-o,
 .sidebar .fa-book:hover {
   color: #007bff;
   font-weight: 200;
+   font-size: medium;
 }
 .container-fluid .table-responsive .fa-trash-o:hover,
 .container-fluid .table-responsive .fa-pencil-square-o:hover{

@@ -27,7 +27,7 @@
 <div class="row pb-0  ">
     @if($individual_sum_bills)
     @foreach ($individual_sum_bills as $single_sum)
-    <div class="card mt-2">
+    <div class="card mt-2 mr-2 align-self-end">
         <div class="card-body card-body-dashboard">
             @switch($single_sum->cat_name)
             @case('Rent')
