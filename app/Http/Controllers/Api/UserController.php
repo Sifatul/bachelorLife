@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use  Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
 
@@ -44,36 +44,35 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        $validator = Validator::make($request->all(), [ 
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
             'name' => 'required|max:120',
             'password' => 'required|min:4'
         ]);
-        if ($validator->fails()) { 
+        if ($validator->fails()) {
             $data['message'] = 'validation failed';
-            $data['error'] = ['error'=>$validator->errors()];
-            return response()->json($data, 401); 
+            $data['error'] = ['error' => $validator->errors()];
+            return response()->json($data, 401);
         }
-        
+
         $user = new User();
         $user->email = $request->email;
-        $user->password = $request->password;//Hash::make();
+        $user->password = $request->password; //Hash::make();
         $user->name = $request->name;
-       
+
 
         if ($user->save()) {
-                                
-            $data['data'] = [
-                'token' => $user->createToken('MyApp')-> accessToken,
-                'name' => $user->name
-            ];
-            $data['message'] = Config::get('constant.201'); 
-            return response()->json($data, 200);            
-        } else { 
-            $data['message'] = Config::get('constant.500');
-            return response()->json($data, 500); 
 
+            $data['data'] = [
+                'token' => $user->createToken('MyApp')->accessToken,
+                'user_id' => $user->id
+            ];
+            $data['message'] = Config::get('constant.201');
+            return response()->json($data, 200);
+        } else {
+            $data['message'] = Config::get('constant.500');
+            return response()->json($data, 500);
         }
     }
 
@@ -122,33 +121,41 @@ class UserController extends Controller
         //
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
-        $validator = Validator::make($request->all(), [ 
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:4'
-        ]); 
-        if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
         }
 
-        if(Auth::attempt(['email' => request('email'), 'password' => $request->password])){ 
-           
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['success' => $success],200); 
-        } 
-        else{ 
-            $data['message'] = $Error_message;
-            return response()->json($data, $Error_code);  
-        }         
-
+        $users = DB::table('users')
+            ->join('oauth_access_tokens', 'users.id', '=', 'oauth_access_tokens.user_id')
+            ->select('users.id AS user_id', 'oauth_access_tokens.id AS token')
+            ->where('users.email', '=', request('email'))
+            ->where('users.password', '=', request('password'))
+            ->first();
+        if ($users != null) {
+            $data['data'] = [
+                'token' => $users->token,
+                'user_id' =>    $users->user_id,
+            ]; 
+            $data['message'] = Config::get('constant.200');
+            return response()->json($data, 200);
+        } else { 
+            $data['message'] = Config::get('constant.500');
+            return response()->json($data, 500);
+        }
     }
-    public function logout(){
+    public function logout()
+    {
         if (Auth::check()) {
-              Auth::logout();       
-              $data['message'] = $Success_message;
-            return response()->json($data, $Success_code);  
-         }
+            Auth::logout();
+            $data['message'] = $Success_message;
+            return response()->json($data, $Success_code);
+        }
     }
-
 }

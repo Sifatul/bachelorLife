@@ -62,15 +62,15 @@ class userController extends Controller
             return redirect('/');
         } 
         
-        $user = new User();
-        $user->email = $request->email;
-        $user->password =  bcrypt($request->password);
-        $user->name = $request->name;
-             
+
 
         $request = Request::create('api/user_login', 'POST', $request->toArray());
         $res = Route::dispatch($request);  
+        return $res;
         if ($res->status()==200){
+            $user = new User();
+            $user->email = $request->email;
+            $user->password =  $request->password;                  
             Auth::login($user, true);
             return   redirect('/'); 
         } 
