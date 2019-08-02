@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-
-
     public function index()
     {
+        // echo "home controller" ;
+        // echo Auth::check();
+        // exit;
         if (Auth::check()) {
 
             $req = Request::create('api/show_list/' . Auth::user()->id, 'GET',   []);
@@ -30,6 +31,7 @@ class HomeController extends Controller
                 ->with('start_time',$start_time)
                 ->with('end_time',$response->getData()->end_time);
         } else {
+
             return view('auth/signin');
         }
     }

@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\User;
 use  Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 
 class UserController extends Controller
 {
@@ -42,30 +44,35 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $validator = Validator::make($request->all(), [ 
             'email' => 'required|email|unique:users',
             'name' => 'required|max:120',
             'password' => 'required|min:4'
         ]);
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);
+            $data['message'] = 'validation failed';
+            $data['error'] = ['error'=>$validator->errors()];
+            return response()->json($data, 401); 
         }
-         
+        
         $user = new User();
         $user->email = $request->email;
-        $user->password =  bcrypt($request->password);
+        $user->password = $request->password;//Hash::make();
         $user->name = $request->name;
        
 
         if ($user->save()) {
-            Auth::login($user);
-            $data['token'] =  $user->createToken('MyApp')-> accessToken;
-            $data['name'] =  $user->name;
-            return response()->json($data, 201);             
-        } else {
-            $data['message'] = $Error_message;
-            return response()->json($data, $Error_code); 
+                                
+            $data['data'] = [
+                'token' => $user->createToken('MyApp')-> accessToken,
+                'name' => $user->name
+            ];
+            $data['message'] = Config::get('constant.201'); 
+            return response()->json($data, 200);            
+        } else { 
+            $data['message'] = Config::get('constant.500');
+            return response()->json($data, 500); 
 
         }
     }
@@ -125,8 +132,8 @@ class UserController extends Controller
             return response()->json(['error'=>$validator->errors()], 401);
         }
 
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user();  
+        if(Auth::attempt(['email' => request('email'), 'password' => $request->password])){ 
+           
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             return response()->json(['success' => $success],200); 
         } 
