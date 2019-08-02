@@ -64,10 +64,10 @@ class UserController extends Controller
 
         if ($user->save()) {
 
-            $data['data'] = [
-                'token' => $user->createToken('MyApp')->accessToken,
-                'user_id' => $user->id
-            ];
+            
+            $user->user_id = $user->id;            
+            $user->token = $user->createToken('MyApp')->accessToken;
+            $data['data'] = $user;
             $data['message'] = Config::get('constant.201');
             return response()->json($data, 200);
         } else {
@@ -132,20 +132,18 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $users = DB::table('users')
+        $user = DB::table('users')
             ->join('oauth_access_tokens', 'users.id', '=', 'oauth_access_tokens.user_id')
-            ->select('users.id AS user_id', 'oauth_access_tokens.id AS token')
+            ->select('users.*', 'oauth_access_tokens.id AS token')
             ->where('users.email', '=', request('email'))
             ->where('users.password', '=', request('password'))
             ->first();
-        if ($users != null) {
-            $data['data'] = [
-                'token' => $users->token,
-                'user_id' =>    $users->user_id,
-            ]; 
+        if ($user != null) {
+            $data['data'] = $user; 
+            
             $data['message'] = Config::get('constant.200');
             return response()->json($data, 200);
-        } else { 
+        } else {
             $data['message'] = Config::get('constant.500');
             return response()->json($data, 500);
         }
