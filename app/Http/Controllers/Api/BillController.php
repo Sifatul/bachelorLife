@@ -12,6 +12,10 @@ use Response;
 
 class BillController extends Controller
 {
+    public $Success_code = 200;
+    public $Error_code = 500;
+    public $Success_message = 'Successful';
+    public $Error_message = 'Internal Error';
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +48,14 @@ class BillController extends Controller
         $Bill = new Bill();
         $Bill->user_id = auth()->user()->id;
         $Bill->cat_id = $request->category_id;
-        $Bill->amount = $request->amount;
-        $Bill->save();
-        return response(200);
+        $Bill->amount = $request->amount;         
+        if($Bill->save()){
+            $data['message'] = $Success_message;
+            return response()->json($data, $Success_code); 
+        }else{
+            $data['message'] = $Error_message;
+            return response()->json($data, $Error_code); 
+        } 
     }
 
     /**
@@ -81,8 +90,15 @@ class BillController extends Controller
         $Bill =  Bill::find($request->expense_id);
         $Bill->cat_id =  $request->category_id;
         $Bill->amount = $request->amount;
-        $Bill->save();
-        return response(200);
+        if($Bill->save()){
+            $data['message'] = $Success_message;
+            return response()->json($data, $Success_code); 
+        }else{
+            $data['message'] = $Error_message;
+            return response()->json($data, $Error_code); 
+        }
+        
+        
     }
 
     /**
@@ -110,13 +126,13 @@ class BillController extends Controller
         return response(200);
     }
 
-    public function showList($id)
+    public function showList($user_id)
     {
 
         $data = [
             'start_time' => Carbon::now(),
             'end_time' => Carbon::now()->startOfMonth()->subMonth()->toDateString(),
-            'user_id' => $id,
+            'user_id' => $user_id,
         ];
         $request = (object) $data;
         $user_id = $request->user_id;

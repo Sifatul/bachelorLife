@@ -27,8 +27,8 @@ Route::middleware(['web','auth'])->group(function () {
     Route::get('/bills','BillController@allBills'); 
 });
 
-Route::middleware(['web','auth'])->group(function () {
-    Route::post('api/store','Api\BillController@store');
+Route::middleware(['web','auth:api',])->group(function () {
+    Route::post('api/store_bill','Api\BillController@store');
     Route::post('api/update_bill/{id}','Api\BillController@update');
     Route::GET('api/delete/{id}','Api\BillController@delete');
     // Route::get('api/bills','Api\BillController@allBills'); 

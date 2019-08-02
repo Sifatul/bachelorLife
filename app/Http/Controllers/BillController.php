@@ -16,7 +16,7 @@ class BillController extends Controller
 
     public function newBill(Request $request)
     {
-        $request = Request::create('api/store', 'POST', $request->toArray());
+        $request = Request::create('api/store_bill', 'POST', $request->toArray());
         $res = json_decode(Route::dispatch($request)->getContent());
         return redirect('/');
     }
@@ -30,10 +30,6 @@ class BillController extends Controller
     }
     public function allBills()
     {
-
-
-
-
 
         $now = Carbon::now();
         // all categories of new expenses

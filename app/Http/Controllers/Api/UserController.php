@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public $Success_code = 200;
+    public $Error_code = 500;
+    public $Success_message = 'Successful';
+    public $Error_message = 'Internal Error';
     /**
      * Display a listing of the resource.
      *
@@ -56,13 +60,12 @@ class UserController extends Controller
 
         if ($user->save()) {
             Auth::login($user);
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-            $success['name'] =  $user->name;
-            return response()->json(['success'=>$success], 201);             
+            $data['token'] =  $user->createToken('MyApp')-> accessToken;
+            $data['name'] =  $user->name;
+            return response()->json($data, 201);             
         } else {
-            return response()->json([
-                'message' => 'Internal Error!'
-            ], 500);
+            $data['message'] = $Error_message;
+            return response()->json($data, $Error_code); 
 
         }
     }
@@ -128,14 +131,16 @@ class UserController extends Controller
             return response()->json(['success' => $success],200); 
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            $data['message'] = $Error_message;
+            return response()->json($data, $Error_code);  
         }         
 
     }
     public function logout(){
         if (Auth::check()) {
               Auth::logout();       
-              response()->json(['success' => 'logout successful'],200); 
+              $data['message'] = $Success_message;
+            return response()->json($data, $Success_code);  
          }
     }
 
