@@ -17,7 +17,9 @@ class userController extends Controller
 {
     //
     public function index()
-    { }
+    { 
+        return view('auth/signin');
+    }
 
     public function userSingUp(Request $request)
     {
@@ -40,7 +42,7 @@ class userController extends Controller
             $user->password = $res->getData()->data->id; //Hash::make();
             $user->name = $res->getData()->data->name;
             Auth::login($user, true);
-            return   redirect('/');
+            return   redirect('/signup');
         }
     }
 
@@ -53,13 +55,14 @@ class userController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/');
+            return redirect('/login');
         }
 
 
 
         $request = Request::create('api/user_login', 'POST', $request->toArray());
         $res = Route::dispatch($request);
+        dd($res);
 
         if ($res->status() == 200) {
             $user = new User();
@@ -69,6 +72,8 @@ class userController extends Controller
 
             Auth::login($user, true);
             return   redirect('/');
+        }else{
+            return redirect('/login');
         }
     }
 

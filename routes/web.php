@@ -14,9 +14,13 @@
 
 Route::middleware(['web'])->group(function () { 
     Route::get('/', 'HomeController@index')->name('home');
+
+    // auth a user
+    Route::get('/login', 'userController@index')->name('login');
     Route::post('/signin','userController@userSignIn');
     Route::get('/signup', 'userController@signup')->name('signup');
     Route::post('/signup','userController@userSingUp');
+
     Route::get('/logout','userController@logout')->name('logout');
 });
 

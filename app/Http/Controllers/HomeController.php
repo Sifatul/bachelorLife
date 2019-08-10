@@ -32,7 +32,7 @@ class HomeController extends Controller
                 ->with('end_time',$response->getData()->end_time);
         } else {
 
-            return view('auth/signin');
+            return redirect('/login');
         }
     }
 }

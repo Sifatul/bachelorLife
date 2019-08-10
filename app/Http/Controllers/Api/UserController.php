@@ -131,14 +131,15 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
+        $credentials = [
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
+        ];
+    
 
-        $user = DB::table('users')
-            ->join('oauth_access_tokens', 'users.id', '=', 'oauth_access_tokens.user_id')
-            ->select('users.*', 'oauth_access_tokens.id AS token')
-            ->where('users.email', '=', request('email'))
-            ->where('users.password', '=', request('password'))
-            ->first();
-        if ($user != null) {
+
+        if (Auth::attempt($credentials)) {
+            $user = User::where('email',$request->get('email'))->first();
             $data['data'] = $user; 
             
             $data['message'] = Config::get('constant.200');
