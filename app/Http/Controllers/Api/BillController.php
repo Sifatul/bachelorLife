@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Response;
+use Illuminate\Support\Facades\Config;
 
 class BillController extends Controller
 {
@@ -44,17 +45,17 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-
+ 
         $Bill = new Bill();
-        $Bill->user_id = auth()->user()->id;
+        $Bill->user_id = $request->user_id;
         $Bill->cat_id = $request->category_id;
         $Bill->amount = $request->amount;         
         if($Bill->save()){
-            $data['message'] = $Success_message;
-            return response()->json($data, $Success_code); 
+            $data['message'] = Config::get('constant.200');
+            return response()->json($data, 200); 
         }else{
-            $data['message'] = $Error_message;
-            return response()->json($data, $Error_code); 
+            $data['message'] = Config::get('constant.500');
+            return response()->json($data, 500); 
         } 
     }
 

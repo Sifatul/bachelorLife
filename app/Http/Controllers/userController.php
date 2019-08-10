@@ -36,13 +36,7 @@ class userController extends Controller
         $request = Request::create('api/user_store', 'POST', $request->toArray());
         $res = Route::dispatch($request);
         if ($res->status() == 200) {
-
-            $user = new User();
-            $user->email = $res->getData()->data->email;
-            $user->password = $res->getData()->data->id; //Hash::make();
-            $user->name = $res->getData()->data->name;
-            Auth::login($user, true);
-            return   redirect('/signup');
+            return   redirect('/login');
         }
     }
 
@@ -61,16 +55,11 @@ class userController extends Controller
 
 
         $request = Request::create('api/user_login', 'POST', $request->toArray());
-        $res = Route::dispatch($request);
-        dd($res);
+        $res = Route::dispatch($request); 
 
-        if ($res->status() == 200) {
-            $user = new User();
-            $user->email = $res->getData()->data->email;
-            $user->password = $res->getData()->data->id; //Hash::make();
-            $user->name = $res->getData()->data->name;
+        if ($res->status() == 200) {          
 
-            Auth::login($user, true);
+            Auth::loginUsingId($res->getData()->data->id, true);
             return   redirect('/');
         }else{
             return redirect('/login');
