@@ -13,8 +13,7 @@
 
 
 Route::middleware(['web'])->group(function () { 
-    Route::get('/', 'HomeController@index')->name('home');
-
+    Route::get('/', 'BillController@index')->name('home');
     // auth a user
     Route::get('/login', 'userController@index')->name('login');
     Route::post('/signin','userController@userSignIn');

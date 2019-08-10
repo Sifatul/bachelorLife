@@ -118,8 +118,9 @@ class BillController extends Controller
     {        
         return $this->billservice->delete($id);
     }
-
-  
+    public function categories(){
+         return  $this->categoryservice->showAll();
+    }
     public function showList($user_id)
     {
  
