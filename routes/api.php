@@ -13,15 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:api'])->group(function () {   
+    Route::post('/store_bill','Api\BillController@store');
+    Route::post('/update_bill/{id}','Api\BillController@update');
+    Route::GET('/delete/{id}','Api\BillController@delete'); 
+    Route::GET('/show_list/{id}','Api\BillController@showList'); 
 });
+
+Route::middleware(['auth:api'])->group(function () {
+    // Route::get('/store_bill','Api\BillController@show');
+});
+
+// Route::get('/store_bill', function(Request $request){
+//     return   ( $request->header());
+//  })  ->middleware('auth:api');
+//  //disable auth middleware to inspect header
  
 
-Route::post('/store_bill','Api\BillController@store');
-Route::post('/update_bill/{id}','Api\BillController@update');
-Route::GET('/delete/{id}','Api\BillController@delete'); 
-Route::GET('/show_list/{id}','Api\BillController@showList'); 
+
 
 //  api based on user    
 Route::post('/user_login','Api\UserController@login'); 

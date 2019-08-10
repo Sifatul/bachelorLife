@@ -10,14 +10,16 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Service\BillService; 
 use Illuminate\Support\Facades\Config;
+use App\Service\CategoryService;
 
 class BillController extends Controller
 {
-    protected $billservice;
+    protected $billservice, $categoryservice;
     
-    public function __construct(BillService $billservice)
+    public function __construct(BillService $billservice, CategoryService $categoryService)
 	{
-		$this->billservice = $billservice;
+        $this->billservice = $billservice;
+        $this->categoryservice = $categoryService;
 	}
  
     /**
@@ -117,44 +119,27 @@ class BillController extends Controller
         return $this->billservice->delete($id);
     }
 
+  
     public function showList($user_id)
     {
+ 
+       
+        $start_time = Carbon::now();
+        $end_time  = Carbon::now()->startOfMonth()->subMonth()->toDateString();
 
-        $data = [
-            'start_time' => Carbon::now(),
-            'end_time' => Carbon::now()->startOfMonth()->subMonth()->toDateString(),
-            'user_id' => $user_id,
-        ];
-        $request = (object) $data;
-        $user_id = $request->user_id;
-        $start_time = $request->start_time;
-        $end_time = $request->end_time;
         
 
+    
 
         // all categories of new expenses
-        $all_cat_slug = DB::table('expense_categories')->select('id as cat_id', 'cat_name')->orderBy('cat_name')->distinct()->get()->all();
-        //sum of all bills in each categories
-        $individual_sum_bills = DB::table('expense_categories')
-            ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
-            ->select('expense_categories.cat_name', 'expense_categories.id',  DB::raw('SUM(amount) AS total'))
-            ->where('user_id', $user_id)
-            ->whereMonth('bills.created_at', '=', $start_time->month)
-            ->groupBy('expense_categories.id')
-            ->get();
+        $all_cat_slug =  $this->categoryservice->showAll();
 
-        // ->whereYear('bills.created_at', '=', $now->year)
-        // return $individual_sum_bills;
-
-        // everyday bill (cat joined with bill)
-        $each_bill = DB::table('expense_categories')
-            ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
-            ->where('user_id',$user_id)
-            ->whereMonth('bills.created_at', '=', $start_time->month)
-            ->take(500)
-            ->get();
+        $individual_sum_bills =  $this->billservice->sum_by_cat($user_id,$start_time, $end_time);
+  
+         
+        $each_bill =  $this->billservice->sum_by_cat($user_id,$start_time, $end_time);
             // ->simplePaginate(20);
- 
+            // return $individual_sum_bills;
             return  response()->json([
                 'all_cat_slug'=>$all_cat_slug,
                 'individual_sum_bills'=>$individual_sum_bills,
