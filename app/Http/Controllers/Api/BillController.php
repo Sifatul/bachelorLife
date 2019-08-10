@@ -127,10 +127,6 @@ class BillController extends Controller
         $start_time = Carbon::now();
         $end_time  = Carbon::now()->startOfMonth()->subMonth()->toDateString();
 
-        
-
-    
-
         // all categories of new expenses
         $all_cat_slug =  $this->categoryservice->showAll();
 

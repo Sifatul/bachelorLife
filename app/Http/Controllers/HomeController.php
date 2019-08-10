@@ -25,33 +25,24 @@ class HomeController extends Controller
     {
 
         
-        // echo "home controller" ;
-// dd( $this->categoryservice->showAll());
-//         // echo Auth::check();
-//         exit;
         if (Auth::check()) {
             $user_id = Auth::id();
+            $now = Carbon::now();
+            $end_time  = Carbon::now()->startOfMonth()->subMonth();
 
-            $start_time = Carbon::now();
-        $end_time  = Carbon::now()->startOfMonth()->subMonth()->toDateString();
-
-        // all categories of new expenses
-        $all_cat_slug =  $this->categoryservice->showAll();
-
-        $individual_sum_bills =  $this->billservice->sum_by_cat($user_id,$start_time, $end_time);
-  
-         
-        $each_bill =  $this->billservice->sum_by_cat($user_id,$start_time, $end_time);
-            // ->simplePaginate(20);
+            $all_cat_slug =  $this->categoryservice->showAll();
+            $individual_sum_bills =  $this->billservice->sum_by_cat($user_id, $now, $end_time);
+            $each_bill =  $this->billservice->show_by_date($user_id, $now, $end_time);
+            
             $pagination_each_bill = new Paginator($each_bill, 10);
-            $start_time = date('Y-m-d',strtotime(Carbon::now()));
-             
+            $start_time = date('Y-m-d', strtotime($now));
+ 
             return view('home')
-                ->with('all_cat_slug',  $all_cat_slug )
+                ->with('all_cat_slug',  $all_cat_slug)
                 ->with('each_bill', $pagination_each_bill)
                 ->with('individual_sum_bills', $individual_sum_bills)
-                ->with('start_time',$start_time)
-                ->with('end_time',$end_time);
+                ->with('start_time', $start_time)
+                ->with('end_time', $end_time);
         } else {
 
             return redirect('/login');
