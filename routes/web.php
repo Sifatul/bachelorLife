@@ -26,7 +26,7 @@ Route::middleware(['web'])->group(function () {
 
 Route::middleware(['web','auth'])->group(function () {
     Route::post('/new_bill','BillController@newBill');
-    Route::post('/edit_bill','BillController@editBill');
+    Route::post('/update_bill','BillController@update');
     Route::get('/delete_bill/{id}','BillController@delete');
     Route::get('/bills','BillController@allBills'); 
 });

@@ -8,24 +8,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use \Illuminate\Support\Facades\Route;
+use App\Service\BillService;
 
 class BillController extends Controller
 {
+    protected $billservice;
     public function index()
     { }
 
+    public function __construct(BillService $billservice)
+	{
+		$this->billservice = $billservice;
+	}
     public function newBill(Request $request)
     {
-        $request = Request::create('api/store_bill', 'POST', $request->toArray());
-        $res = json_decode(Route::dispatch($request)->getContent());
+        
+        $Bill = new Bill();
+        $Bill->user_id = Auth::user()->id;
+        $Bill->cat_id = $request->category_id;
+        $Bill->amount = $request->amount;  
+        $res = $this->billservice->store($Bill);
         return redirect('/');
     }
     public function update(Request $request)
     {
-
         $id = $request->expense_id;
-        $request = Request::create('api/update_bill/{id}', 'POST', $request->toArray());
-        $response = Route::dispatch($request);
+        $Bill =  Bill::find($request->expense_id);
+        $Bill->cat_id =  $request->category_id;
+        $Bill->amount = $request->amount;
+        $this->billservice->update($Bill);     
         return redirect()->action('HomeController@index');
     }
     public function allBills()
@@ -64,8 +75,7 @@ class BillController extends Controller
     }
     public function delete($id)
     {
-        $request = Request::create('api/delete/' . $id, 'GET',   []);
-        $response = Route::dispatch($request);
+        $this->billservice->delete($id);
         return redirect('/');
     }
 }

@@ -8,15 +8,18 @@ use App\Bill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Response;
+use App\Service\BillService; 
 use Illuminate\Support\Facades\Config;
 
 class BillController extends Controller
 {
-    public $Success_code = 200;
-    public $Error_code = 500;
-    public $Success_message = 'Successful';
-    public $Error_message = 'Internal Error';
+    protected $billservice;
+    
+    public function __construct(BillService $billservice)
+	{
+		$this->billservice = $billservice;
+	}
+ 
     /**
      * Display a listing of the resource.
      *
@@ -49,14 +52,10 @@ class BillController extends Controller
         $Bill = new Bill();
         $Bill->user_id = $request->user_id;
         $Bill->cat_id = $request->category_id;
-        $Bill->amount = $request->amount;         
-        if($Bill->save()){
-            $data['message'] = Config::get('constant.200');
-            return response()->json($data, 200); 
-        }else{
-            $data['message'] = Config::get('constant.500');
-            return response()->json($data, 500); 
-        } 
+        $Bill->amount = $request->amount;   
+        $res = $this->billservice->store($Bill);
+        return $res;      
+        
     }
 
     /**
@@ -91,14 +90,8 @@ class BillController extends Controller
         $Bill =  Bill::find($request->expense_id);
         $Bill->cat_id =  $request->category_id;
         $Bill->amount = $request->amount;
-        if($Bill->save()){
-            $data['message'] = $Success_message;
-            return response()->json($data, $Success_code); 
-        }else{
-            $data['message'] = $Error_message;
-            return response()->json($data, $Error_code); 
-        }
-        
+        return $this->billservice->update($Bill);
+     
         
     }
 
@@ -120,11 +113,8 @@ class BillController extends Controller
     }
 
     public function delete($id)
-    {
-        // return $id;
-        $Bill = Bill::find($id);
-        $Bill->delete();
-        return response(200);
+    {        
+        return $this->billservice->delete($id);
     }
 
     public function showList($user_id)

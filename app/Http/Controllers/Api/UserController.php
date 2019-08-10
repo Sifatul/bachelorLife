@@ -66,7 +66,7 @@ class UserController extends Controller
 
             
             $user->user_id = $user->id;            
-            $user->token = $user->createToken('MyApp')->accessToken;
+            $user->access_token = $user->createToken('MyApp')->accessToken;
             $data['data'] = $user;
             $data['message'] = Config::get('constant.201');
             return response()->json($data, 200);
@@ -140,6 +140,7 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = User::where('email',$request->get('email'))->first();
+            $user->access_token = $user->createToken('MyApp')->accessToken;
             $data['data'] = $user; 
             
             $data['message'] = Config::get('constant.200');
