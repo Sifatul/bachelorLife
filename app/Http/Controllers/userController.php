@@ -66,7 +66,7 @@ class userController extends Controller
         $res = $this->authservice->login($credentials);
 
         if ($res->status() == 200) {
-            Auth::loginUsingId($res->getData()->data->id, true);
+            Auth::loginUsingId($res->getData()->data->id, false);
             return   redirect('/');
         } else {
  
@@ -82,7 +82,7 @@ class userController extends Controller
 
     public function logout()
     {
-        return redirect('/')->with(Auth::logout());
+        return redirect('/login')->with(Auth::logout());
         // $request = Request::create('api/logout','GET',[]);
         // $response = Route::dispatch($request);
         // echo $response;

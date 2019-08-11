@@ -132,10 +132,10 @@ class UserController extends Controller
     }
     public function logout()
     {
-        if (Auth::check()) {
-            Auth::logout();
-            $data['message'] = $Success_message;
-            return response()->json($data, $Success_code);
-        }
+        // if (Auth::check()) {
+        //     Auth::logout();
+        //     $data['message'] = $Success_message;
+        //     return response()->json($data, $Success_code);
+        // }
     }
 }

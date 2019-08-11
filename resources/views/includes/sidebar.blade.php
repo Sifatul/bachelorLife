@@ -17,12 +17,12 @@
                 </a>
             </li>
 
-            <!-- <li class="nav-item">
-                <a class="nav-link {{ Request::path() == 'bills' ? ' active' : ' ' }} " href="{{url('bills')}}">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::path() == 'archive' ? ' active' : ' ' }} " href="{{url('archive')}}">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    Bills
+                    Archive
                 </a>
-            </li> -->
+            </li>
         </ul>
     </div>
 </nav>
