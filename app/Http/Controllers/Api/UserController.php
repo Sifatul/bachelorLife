@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
+use App\Service\AuthService;
 
 class UserController extends Controller
 {
@@ -22,6 +23,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $authservice;
+    
+    public function __construct(authservice $authservice)
+	{
+        $this->authservice = $authservice; 
+	}
     public function index()
     {
         //
@@ -47,33 +55,14 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
-            'name' => 'required|max:120',
             'password' => 'required|min:4'
         ]);
+
         if ($validator->fails()) {
-            $data['message'] = 'validation failed';
-            $data['error'] = ['error' => $validator->errors()];
-            return response()->json($data, 401);
-        }
-
-        $user = new User();
-        $user->email = $request->email;
-        $user->password = $request->password; //Hash::make();
-        $user->name = $request->name;
-
-
-        if ($user->save()) {
-
-            
-            $user->user_id = $user->id;            
-            $user->access_token = $user->createToken('MyApp')->accessToken;
-            $data['data'] = $user;
-            $data['message'] = Config::get('constant.201');
-            return response()->json($data, 200);
-        } else {
-            $data['message'] = Config::get('constant.500');
-            return response()->json($data, 500);
-        }
+            return response()->json(['error' => $validator->errors()], 401);
+        }       
+        return $this->authservice->store($request); 
+         
     }
 
     /**
@@ -135,20 +124,11 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         ];
+
+        return $this->authservice->login( $credentials);
     
 
-
-        if (Auth::attempt($credentials)) {
-            $user = User::where('email',$request->get('email'))->first();
-            $user->access_token = $user->createToken('MyApp')->accessToken;
-            $data['data'] = $user; 
-            
-            $data['message'] = Config::get('constant.200');
-            return response()->json($data, 200);
-        } else {
-            $data['message'] = Config::get('constant.500');
-            return response()->json($data, 500);
-        }
+        
     }
     public function logout()
     {

@@ -12,29 +12,34 @@ use Illuminate\Support\Facades\DB;
 use function MongoDB\BSON\toJSON;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Service\AuthService;
 
 class userController extends Controller
 {
-    //
+
+    protected $authservice;
+
+    public function __construct(authservice $authservice)
+    {
+        $this->authservice = $authservice;
+    }
     public function index()
-    { 
+    {
         return view('auth/signin');
     }
 
     public function userSingUp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:4'
         ]);
 
         if ($validator->fails()) {
-            return view('auth/signup');
-        }
-
-
-        $request = Request::create('api/user_store', 'POST', $request->toArray());
-        $res = Route::dispatch($request);
+            return view('auth/signup') 
+            ->withErrors($validator);
+        } 
+        $res = $this->authservice->store($request);
         if ($res->status() == 200) {
             return   redirect('/login');
         }
@@ -42,27 +47,31 @@ class userController extends Controller
 
     public function userSignIn(Request $request)
     {
-        // $validator = Validator::make($request->all(), [ 
+       
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:4'
         ]);
 
         if ($validator->fails()) {
-            return redirect('/login');
+            return redirect('/login')
+            ->withErrors($validator);
         }
 
+        $credentials = [
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
+        ];
+             
+        $res = $this->authservice->login($credentials);
 
-
-        $request = Request::create('api/user_login', 'POST', $request->toArray());
-        $res = Route::dispatch($request); 
-
-        if ($res->status() == 200) {          
-
+        if ($res->status() == 200) {
             Auth::loginUsingId($res->getData()->data->id, true);
             return   redirect('/');
-        }else{
-            return redirect('/login');
+        } else {
+ 
+            return redirect('/login')
+            ->withErrors($res->getData());
         }
     }
 
