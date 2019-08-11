@@ -124,7 +124,7 @@
 
         </tbody>
     </table>
-   
+     
         {{ $each_bill->links() }}
     @endif
 </div>

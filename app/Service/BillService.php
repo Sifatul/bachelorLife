@@ -63,7 +63,7 @@ class BillService{
             ->join('bills', 'bills.cat_id', '=', 'expense_categories.id')
             ->where('user_id',$user_id)
             ->whereMonth('bills.created_at', '>=', $past_time->month) //created after the past date
-            ->whereMonth('bills.created_at', '<=', $recent_time->month) //created before the past date 
-            ->get();
+            ->whereMonth('bills.created_at', '<=', $recent_time->month); //created before the past date 
+             
     }
 }
