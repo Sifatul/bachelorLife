@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:api'])->group(function () {   
+    Route::post('/store_bill','Api\BillController@store');
+    Route::post('/update_bill/{id}','Api\BillController@update');
+    Route::GET('/delete/{id}','Api\BillController@delete'); 
+    Route::GET('/show_list/{id}','Api\BillController@showList');
+    Route::GET('/categories','Api\BillController@categories');  
+
+
 });
+
+
+//  api based on user    
+Route::post('/user_login','Api\UserController@login'); 
+Route::post('/user_store','Api\UserController@store');

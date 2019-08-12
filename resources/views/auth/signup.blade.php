@@ -4,8 +4,8 @@
 @endsection
 @section('content')
 
-<div class=" form-container ml-auto col-md-3 " >
-        <form class="px-4 py-3" method="post" action="{{route('signup')}}" autocomplete="off">
+<div class=" col-md-4 mt-4 ml-auto mr-auto ">
+        <form class="px-4 py-3 form-container" method="post" action="{{route('signup')}}" autocomplete="off">
             <h3>Sign Up</h3>
             <hr>
 
