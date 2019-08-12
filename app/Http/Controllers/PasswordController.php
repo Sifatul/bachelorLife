@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service\PasswordService;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class PasswordController extends Controller
 {
@@ -23,9 +24,9 @@ class PasswordController extends Controller
      */
     public function index()
     {
-         //no token shall be sent before getting the email address        
+        //no token shall be sent before getting the email address        
         return view('reset_password.reset_password');
-   
+
         //
     }
 
@@ -68,9 +69,7 @@ class PasswordController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        
-    }
+    { }
 
     /**
      * Update the specified resource in storage.
@@ -79,21 +78,18 @@ class PasswordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request )
+    public function update(Request $request)
     {
-        $res = $this->passwordservice->update($request);  
-       
-        if ($res->status() == 200) {    
-            $data=[
-                'reset_token'=>'',
-                'message'=>'Password updated!'
-            ];   
-            return redirect('/login')
-            ->with('status', 'Password updated! Please login');
-        }else{
 
+        $res = $this->passwordservice->update($request);
+
+        if ($res->status() == 200) {
+            return redirect('/login')
+                ->with('status', 'Password updated! Please login');
+        } else {
+            return redirect('/password_reset')
+                ->withErrors(['message' => $res->getData()->message]);
         }
-         
     }
 
     /**
@@ -106,29 +102,36 @@ class PasswordController extends Controller
     {
         //
     }
-    public function password_reset(Request $request){     
+    public function password_reset(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
 
-        $res = $this->passwordservice->reset_password($request->get('email'));       
+        if ($validator->fails()) {
+
+            return view('reset_password.reset_password')
+                ->withErrors($validator);
+        }
+
+        $res = $this->passwordservice->reset_password($request->get('email'));
 
         if ($res->status() == 200) {
             return redirect('/login')
-            ->with('status', 'Email has been sent! Please check your inbox!');
+                ->with('status', 'Email has been sent! Please check your inbox!');
+        } else {
+            return Redirect::back()->withErrors(['message' =>  $res->getData()->message]);
         }
-          
-
     }
-    public function verify_token($token){
-        $res = $this->passwordservice->verify_token($token);  
+    public function verify_token($token)
+    {
+        $res = $this->passwordservice->verify_token($token);
         if ($res->status() == 200) {
-            $data=['reset_token'=>$token];
+            $data = ['reset_token' => $token];
             return view('reset_password.update_password')
-            ->with($data);
-        }else{
-            return view('reset_password.update_password')
-            ->with($res->getData()->message);
+                ->with($data);
+        } else {
+            return Redirect::back()->withErrors(['message' =>  $res->getData()->message]);
         }
-
-        
-
     }
 }

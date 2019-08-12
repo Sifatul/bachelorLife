@@ -18,12 +18,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/update_bill/{id}','Api\BillController@update');
     Route::GET('/delete/{id}','Api\BillController@delete'); 
     Route::GET('/show_list/{id}','Api\BillController@showList');
-    Route::GET('/categories','Api\BillController@categories');  
-
-
+    Route::GET('/categories','Api\BillController@categories'); 
 });
 
 
 //  api based on user    
 Route::post('/user_login','Api\UserController@login'); 
 Route::post('/user_store','Api\UserController@store');
+
+Route::post('/password_reset','Api\PasswordController@password_reset'); 
+Route::post('/password_reset/update','Api\PasswordController@update');

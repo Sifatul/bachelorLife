@@ -20,14 +20,19 @@ class PasswordService
     {
         // must change the email
 
+ 
 
         $user = User::where('email', $email)->first();
         if ($user) {
             $to_name = $user->name;
-            $to_email = 'sifatul@cbnu.ac.kr';
+            $to_email =  $user->email;
             $token = str_random(60);
-            $data = ['name' => $user->name, 'link' => url('/') . '/password_reset/' .  $token];          
-            Mail::send('Mail.mail', $data, function ($message) use ($to_name, $to_email) {
+            $data = [
+                'name' => $user->name, 
+                'link' => url('/') . '/password_reset/' .  $token,
+                'login_link' =>url('/') . '/password_reset/'
+            ];          
+            Mail::send('Mail.password_reset', $data, function ($message) use ($to_name, $to_email) {
                 $message->to($to_email, $to_name)->subject('Reset Password');
                 $message->from('sifat.wallet@gmail.com', 'BachelorLife');
             });
@@ -42,9 +47,6 @@ class PasswordService
                 $data['message'] = Config::get('constant.500');
                 return response()->json($data, 500);
             }
-
-
-          
         } else {
             $data['message'] = 'Email does not exist!';
             return response()->json($data, 401);

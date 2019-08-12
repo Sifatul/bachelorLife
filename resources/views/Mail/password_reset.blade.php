@@ -9,7 +9,7 @@ Dear <strong>{{ $name }}</strong>,
 </div>
 <a href="{{ $link }}">{{ $link }}</a>
 <div>
-    If you don’t use this link within 3 hours, it will expire. To get a new password reset link, visit https://github.com/password_reset
+    If you don’t use this link within 2 hours, it will expire. To get a new password reset link, please visit {{ $login_link }}
 </div>
 <div>
     Thanks,

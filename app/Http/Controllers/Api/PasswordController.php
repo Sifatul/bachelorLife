@@ -5,8 +5,18 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Service\PasswordService;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
 class PasswordController extends Controller
 {
+    protected $passwordservice;
+
+    public function __construct(passwordservice $passwordservice)
+    {
+        $this->passwordservice = $passwordservice;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -67,9 +77,19 @@ class PasswordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+        $res = $this->passwordservice->update($request);
+
+        if ($res->status() == 200) {
+            $data['message'] = 'Password updated!';
+            return response()->json($data, 200);
+        } else {
+            $data['message'] = $res->getData()->message;
+            return response()->json($data, $res->status());
+        }
+
     }
 
     /**
@@ -82,4 +102,30 @@ class PasswordController extends Controller
     {
         //
     }
+    public function password_reset(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401); 
+        }
+
+        $res = $this->passwordservice->reset_password($request->get('email'));
+
+
+        if ($res->status() == 200) {
+            $data['message'] = 'Email has been sent! Please check your inbox!';
+            return response()->json($data, 200);
+        } else {
+            $data['message'] = $res->getData()->message;
+            return response()->json($data, $res->status());
+        }
+
+ 
+    }
+
+    
 }
