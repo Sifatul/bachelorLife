@@ -40,6 +40,7 @@ class PasswordService
             $reset_password = new reset_password();
             $reset_password->user_id =  $user->id;
             $reset_password->reset_token = $token;
+
             if (  $reset_password->save()){
                 $data['message'] = Config::get('constant.200');
                 return response()->json($data, 200);
@@ -56,8 +57,11 @@ class PasswordService
     {
         $token = reset_password::where('reset_token', '=', $token)
             ->where('created_at', '>', Carbon::now()->subHours(2))
+            ->where('status', '=', true)
             ->first();
         if ($token) {
+            $token->status = false;
+            $token->save();
             $data['data']=  $token;
             $data['message'] = Config::get('constant.200');
             return response()->json($data, 200);

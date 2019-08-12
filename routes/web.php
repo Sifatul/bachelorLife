@@ -23,7 +23,7 @@ Route::middleware(['web'])->group(function () {
     // password reset
     Route::get('/password_reset','PasswordController@index'); 
     Route::post('/password_reset','PasswordController@password_reset'); 
-    Route::get('/password_reset/{token}','PasswordController@verify_token');   
+    Route::get('/password_reset/{token}','PasswordController@show');   
     Route::post('/password_reset/update','PasswordController@update'); 
     
     

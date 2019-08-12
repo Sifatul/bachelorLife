@@ -17,6 +17,7 @@ class CreateResetPasswordsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->char('reset_token', 60)->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

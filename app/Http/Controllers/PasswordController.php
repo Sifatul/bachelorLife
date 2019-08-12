@@ -57,9 +57,11 @@ class PasswordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($token)
     {
-        //
+        $data = ['reset_token' => $token];
+        return view('reset_password.update_password')
+            ->with($data);
     }
 
     /**
@@ -123,15 +125,5 @@ class PasswordController extends Controller
             return Redirect::back()->withErrors(['message' =>  $res->getData()->message]);
         }
     }
-    public function verify_token($token)
-    {
-        $res = $this->passwordservice->verify_token($token);
-        if ($res->status() == 200) {
-            $data = ['reset_token' => $token];
-            return view('reset_password.update_password')
-                ->with($data);
-        } else {
-            return Redirect::back()->withErrors(['message' =>  $res->getData()->message]);
-        }
-    }
+    
 }
