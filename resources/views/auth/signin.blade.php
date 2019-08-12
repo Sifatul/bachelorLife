@@ -10,13 +10,18 @@ Signin
         <hr>
         @if ($errors->has('message'))  
         <div class="alert alert-info">  {{ $errors->first('message')}}</div>
-
         @endif
         @if (session("auth_failed"))
         <div class="alert alert-danger">
             {{session("auth_failed")[0] }}
         </div>
+        @elseif ( session('status') )
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
         @endif
+        
+
         <div class="form-group {{$errors->has('email')? 'has-error':''}}">
             <label for="exampleDropdownFormEmail1">Email address</label>
             <input type="email" class="form-control {{$errors->has('email')?'is-invalid':''}}" name="email" id="exampleDropdownFormEmail1" placeholder="email@example.com" value="{{Request::old('email') }}">

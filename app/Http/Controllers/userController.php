@@ -41,7 +41,8 @@ class userController extends Controller
         } 
         $res = $this->authservice->store($request);
         if ($res->status() == 200) {
-            return   redirect('/login');
+            return   redirect('/login')
+            ->with('status', 'Registration Successful!');
         }
     }
 

@@ -14,7 +14,7 @@ class AuthService
     {
         $user = new User();
         $user->email = $request->email;
-        $user->password = $request->password; //Hash::make();
+        $user->password = bcrypt( $request->password); //Hash::make();
         $user->name = $request->name; 
 
         if ($user->save()) {            
