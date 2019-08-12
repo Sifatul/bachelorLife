@@ -4,7 +4,7 @@ Signin
 @endsection
 
 @section('content')
-<div class=" col-md-4 mt-4 ml-auto mr-auto ">
+<div class=" col-md-4 mt-4 ml-auto mr-auto form_parent">
     <form class="px-4 py-3 form-container " method="post" action="{{'signin'}}">
         <h3>Sign In</h3>
         <hr>
@@ -46,7 +46,7 @@ Signin
         <div class="form-group">
             <div class="dropdown-divider"></div>
             <div class="">Already have account? <a href="{{url('/signup')}}">Sign Up</a></div>
-            <a class=" " href="#">Forgot password?</a>
+            <a class=" " href="{{url('/password_reset')}}">Forgot password?</a>
         </div>
     </form>
 

@@ -13,6 +13,7 @@ use function MongoDB\BSON\toJSON;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Service\AuthService;
+use Illuminate\Support\Facades\Mail;
 
 class userController extends Controller
 {
@@ -83,12 +84,9 @@ class userController extends Controller
 
     public function logout()
     {
-        return redirect('/login')->with(Auth::logout());
-        // $request = Request::create('api/logout','GET',[]);
-        // $response = Route::dispatch($request);
-        // echo $response;
-        // return $response;
-        // Auth::logout();
-        // return redirect('/');
+        return redirect('/login')->with(Auth::logout()); 
     }
+    
+  
+    
 }

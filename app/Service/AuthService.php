@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 
 class AuthService
 {
@@ -14,11 +14,11 @@ class AuthService
     {
         $user = new User();
         $user->email = $request->email;
-        $user->password = bcrypt( $request->password); //Hash::make();
-        $user->name = $request->name; 
+        $user->password = bcrypt($request->password); //Hash::make();
+        $user->name = $request->name;
 
-        if ($user->save()) {            
-            $user->user_id = $user->id;            
+        if ($user->save()) {
+            $user->user_id = $user->id;
             $user->access_token = $user->createToken('MyApp')->accessToken;
             $data['data'] = $user;
             $data['message'] = Config::get('constant.201');
@@ -30,12 +30,12 @@ class AuthService
     }
 
     public function login($credentials)
-    {        
+    {
         if (Auth::attempt($credentials)) {
-            $user = User::where('email',$credentials['email'])->first();
+            $user = User::where('email', $credentials['email'])->first();
             $user->access_token = $user->createToken('MyApp')->accessToken;
-            $data['data'] = $user; 
-            
+            $data['data'] = $user;
+
             $data['message'] = Config::get('constant.200');
             return response()->json($data, 200);
         } else {
@@ -44,5 +44,5 @@ class AuthService
         }
     }
 
-
+    
 }

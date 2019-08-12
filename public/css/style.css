@@ -14,6 +14,12 @@ body {
   z-index: 999;
 }
 
+.form_parent{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  height: 80%;
+}
 .form-container {
   background: white; 
   border: 1px solid #394a51;
@@ -22,6 +28,7 @@ body {
   padding: 12px; 
   width: 85%;
   max-width: 400px;
+  margin: auto;
 }
 
 .navbar-dark .navbar-brand {
