@@ -16,7 +16,8 @@ class AuthService
         $token = str_random(60);
         $data = [
             'name' => $to_name, 
-            'link' => url('/') . '/email_verify/' .  $token, 
+            'web_link' => url('/') . '/email_verify/' .  $token, 
+            'api_link' => url('/') . '/api/email_verify/' .  $token, 
         ];          
         Mail::send('Mail.registration_verify', $data, function ($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Confirmation of registration');
@@ -61,12 +62,20 @@ class AuthService
     public function login($credentials)
     {
         if (Auth::attempt($credentials)) {
-            $user = User::where('email', $credentials['email'])->first();
-            $user->access_token = $user->createToken('MyApp')->accessToken;
-            $data['data'] = $user;
+            $user = User::where('email', $credentials['email'])
+            ->where('status','=',2)
+            ->first();
+            if($user){
+                $user->access_token = $user->createToken('MyApp')->accessToken;
+                $data['data'] = $user;
+                $data['message'] = Config::get('constant.200');
+                return response()->json($data, 200);
 
-            $data['message'] = Config::get('constant.200');
-            return response()->json($data, 200);
+            }else{
+                $data['message'] = 'Please verify your email address.';
+                return response()->json($data, 404);
+            }
+            
         } else {
             $data['message'] = 'Invalid email or password';
             return response()->json($data, 401);
@@ -82,8 +91,8 @@ class AuthService
             $AllToken->status = false;
             $AllToken->save();
             $user = User::find($AllToken->user_id);
-            $user->status = 2;
-            $user->access_token = $user->createToken('MyApp')->accessToken;
+            $user->status = 2; //user if verified
+            $user->save(); 
             $data['data']=  $user;
             $data['message'] = Config::get('constant.200');
             return response()->json($data, 200);

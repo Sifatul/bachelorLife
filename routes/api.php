@@ -25,6 +25,7 @@ Route::middleware(['auth:api'])->group(function () {
 //  api based on user    
 Route::post('/user_login','Api\UserController@login'); 
 Route::post('/user_store','Api\UserController@store');
+Route::GET('/email_verify/{token}', 'Api\UserController@verify_email');
 
 Route::post('/password_reset','Api\PasswordController@password_reset'); 
 Route::post('/password_reset/update','Api\PasswordController@update');

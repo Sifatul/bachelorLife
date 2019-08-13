@@ -72,8 +72,7 @@ class userController extends Controller
         if ($res->status() == 200) {
             Auth::loginUsingId($res->getData()->data->id, false);
             return   redirect('/');
-        } else {
- 
+        } else { 
             return redirect('/login')
             ->withErrors($res->getData());
         }
