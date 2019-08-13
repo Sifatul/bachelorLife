@@ -80,7 +80,7 @@ class PasswordController extends Controller
     public function update(Request $request)
     {
         
-        $res = $this->passwordservice->update($request);
+        $res = $this->passwordservice->update_password($request);
 
         if ($res->status() == 200) {
             $data['message'] = 'Password updated!';

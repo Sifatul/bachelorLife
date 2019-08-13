@@ -83,7 +83,7 @@ class PasswordController extends Controller
     public function update(Request $request)
     {
 
-        $res = $this->passwordservice->update($request);
+        $res = $this->passwordservice->update_password($request);
 
         if ($res->status() == 200) {
             return redirect('/login')
@@ -120,7 +120,7 @@ class PasswordController extends Controller
 
         if ($res->status() == 200) {
             return redirect('/login')
-                ->with('status', 'Email has been sent! Please check your inbox!');
+                ->with('status', 'Email has been sent to your registered email address! Please check your inbox!');
         } else {
             return Redirect::back()->withErrors(['message' =>  $res->getData()->message]);
         }

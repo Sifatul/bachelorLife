@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use App\Bill;
+ 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
-use App\reset_password;
+use App\AllToken;
 use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\Config; 
@@ -18,10 +18,7 @@ class PasswordService
 
     public function reset_password($email)
     {
-        // must change the email
-
  
-
         $user = User::where('email', $email)->first();
         if ($user) {
             $to_name = $user->name;
@@ -37,11 +34,12 @@ class PasswordService
                 $message->from('sifat.wallet@gmail.com', 'BachelorLife');
             });
 
-            $reset_password = new reset_password();
-            $reset_password->user_id =  $user->id;
-            $reset_password->reset_token = $token;
-
-            if (  $reset_password->save()){
+            $AllToken = new AllToken();
+            $AllToken->user_id =  $user->id;
+            $AllToken->reset_token = $token;
+            $AllToken->reason = 2;
+            //status is true by default
+            if ( $AllToken->save()){
                 $data['message'] = Config::get('constant.200');
                 return response()->json($data, 200);
             }else{
@@ -55,14 +53,15 @@ class PasswordService
     }
     public function verify_token($token)
     {
-        $token = reset_password::where('reset_token', '=', $token)
+        $AllToken = AllToken::where('reset_token', '=', $token)
             ->where('created_at', '>', Carbon::now()->subHours(2))
             ->where('status', '=', true)
+            ->where('reason', '=', 2)
             ->first();
-        if ($token) {
-            $token->status = false;
-            $token->save();
-            $data['data']=  $token;
+        if ($AllToken) {
+            $AllToken->status = false;
+            $AllToken->save();
+            // $data['data']=  $AllToken;
             $data['message'] = Config::get('constant.200');
             return response()->json($data, 200);
         } else {
@@ -70,12 +69,12 @@ class PasswordService
             return response()->json($data, 401);
         }
     }
-    public function update(Request $request){
+    public function update_password(Request $request){
         $token = $request->reset_token;
         $res = $this->verify_token($token); 
         if ($res->status() == 200) {
             $user = User::find( $res->getData()->data->user_id);
-            $user->password = bcrypt($request->password);         
+            $user->password = bcrypt($request->password);       
            
            if($user->save()){
             $data['message'] = Config::get('constant.200');

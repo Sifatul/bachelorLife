@@ -14,15 +14,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Service\AuthService;
 use Illuminate\Support\Facades\Mail;
+use App\Service\PasswordService;
 
 class userController extends Controller
 {
 
-    protected $authservice;
+    protected $authservice, $passwordservice;
 
-    public function __construct(authservice $authservice)
+    public function __construct(authservice $authservice, passwordservice $passwordservice)
     {
         $this->authservice = $authservice;
+        $this->passwordservice = $passwordservice;
     }
     public function index()
     {
@@ -43,7 +45,7 @@ class userController extends Controller
         $res = $this->authservice->store($request);
         if ($res->status() == 200) {
             return   redirect('/login')
-            ->with('status', 'Registration Successful!');
+            ->with('status', $res->getData()->message);
         }
     }
 
@@ -86,6 +88,18 @@ class userController extends Controller
     {
         return redirect('/login')->with(Auth::logout()); 
     }
+
+
+    public function verify_email($token){
+        $res = $this->authservice->verify_email_token($token);
+        if ($res->status() == 200) {
+            return   redirect('/login')->with('status','Account verified.');
+        } else { 
+            return redirect('/login')
+            ->withErrors(['message'=>$res->getData()->message]);
+        }
+       }
+    
     
   
     

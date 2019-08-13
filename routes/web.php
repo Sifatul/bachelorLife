@@ -19,6 +19,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('/signin','userController@userSignIn');
     Route::get('/signup', 'userController@signup')->name('signup');
     Route::post('/signup','userController@userSingUp'); 
+    Route::get('/email_verify/{token}', 'userController@verify_email');
 
     // password reset
     Route::get('/password_reset','PasswordController@index'); 

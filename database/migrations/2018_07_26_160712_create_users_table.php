@@ -18,14 +18,12 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('email');
             $table->string('name');
-            $table->string('password');
-            $table->string('password');
+            $table->string('password'); 
             $table->rememberToken();
-            
-        });
-        Schema::table('users', function($table) {
-            $table->char('api_token', 60)->nullable()->after('remember_token');
-        });
+            $table->char('api_token', 60)->nullable();
+            $table->integer('status')->unsigned()->default(1);        
+            // unverified =1; verfied =2     
+        }); 
     }
 
     /**
