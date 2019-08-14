@@ -61,7 +61,7 @@ class AuthService
 
     public function login($credentials)
     {
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials,false)) {
             $user = User::where('email', $credentials['email'])
             ->where('status','=',2)
             ->first();

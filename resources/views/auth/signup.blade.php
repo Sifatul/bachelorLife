@@ -24,12 +24,7 @@
                 <input type="password" class="form-control {{ $errors->has('password')? 'is-invalid':'' }}" id="exampleDropdownFormPassword1" name="password" autocomplete="new-password" autocomplete="false" placeholder="Password" value="{{Request::old('password') }}">
                 <div class="invalid-feedback">{{$errors->first('password')}}</div>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                    Remember me
-                </label>
-            </div>
+          
             <button type="submit" class="btn btn-primary">Sign up</button>
 
             @csrf

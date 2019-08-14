@@ -50,8 +50,7 @@ class userController extends Controller
     }
 
     public function userSignIn(Request $request)
-    {
-       
+    {       
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:4'
@@ -70,7 +69,7 @@ class userController extends Controller
         $res = $this->authservice->login($credentials);
 
         if ($res->status() == 200) {
-            Auth::loginUsingId($res->getData()->data->id, false);
+            Auth::loginUsingId($res->getData()->data->id,  $request->get('remember_me'));
             return   redirect('/');
         } else { 
             return redirect('/login')
