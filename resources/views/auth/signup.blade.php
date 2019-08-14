@@ -10,17 +10,17 @@
             <hr>
 
             <div class="form-group ">
-                <label for="exampleForName">Full Name</label>
+                <label class="py-1" for="exampleForName">Full Name</label>
                 <input type="text" class="form-control {{ $errors->has('name')? 'is-invalid':'' }}" id="exampleForName" name="name" placeholder="Sam" value="{{Request::old('name') }}">
                 <div class="invalid-feedback">{{$errors->first('name')}}</div>
             </div>
             <div class="form-group">
-                <label for="exampleDropdownFormEmail1">Email address</label>
+                <label class="py-1" for="exampleDropdownFormEmail1">Email address</label>
                 <input type="email" class="form-control {{ $errors->has('email')? 'is-invalid':'' }}" id="exampleDropdownFormEmail1" name="email" autocomplete="off" placeholder="email@example.com" value="{{Request::old('email') }}">
                 <div class="invalid-feedback">{{$errors->first('email')}}</div>
             </div>
             <div class="form-group">
-                <label for="exampleDropdownFormPassword1">Password</label>
+                <label class="py-1" for="exampleDropdownFormPassword1">Password</label>
                 <input type="password" class="form-control {{ $errors->has('password')? 'is-invalid':'' }}" id="exampleDropdownFormPassword1" name="password" autocomplete="new-password" autocomplete="false" placeholder="Password" value="{{Request::old('password') }}">
                 <div class="invalid-feedback">{{$errors->first('password')}}</div>
             </div>

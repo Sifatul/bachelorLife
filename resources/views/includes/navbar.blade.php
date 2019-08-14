@@ -6,13 +6,15 @@
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     @if( Auth::check())
+                    <strong id="nav_user_name" px-1>{{ Auth::user()->name }}</strong>
                         <div class="dropdown header_dropdown">
                             <i class="fa fa-user" id="signOutButton" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false"></i>
+                               <!-- <i class="fas fa-users"></i> -->
                             <div class="dropdown-menu" aria-labelledby="signOutButton">
 
                                 <a class="nav-link dropdown-item  px-2" href="{{url('logout')}}">
-                                    <i class="fas fa-sign-out-alt  fw6" title="Log Out"></i>
+                                    <!-- <i class="fas fa-sign-out-alt  fw6" title="Log Out"></i> -->
                                     <span class="my-2 my-sm-0 ">Logout</span>
                                 </a>
                                 {{-- <a class="nav-link dropdown-item  px-2" href="{{url('settings')}}">
