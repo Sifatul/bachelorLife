@@ -69,8 +69,11 @@
                 <td>
                     <i class="fas fa-edit edit_icon px-1" aria-hidden="true" data-toggle="modal" data-target="#exampleModal" data-expense-cat_id="{{  $bill->cat_id }}" data-expense-amount="{{  $bill->amount }}" data-expense-id="{{  $bill->id }}">
                     </i>
-                    <a href="{{ url('/delete_bill/'.$bill->id) }}">
-                        <i class="fas fa-trash delete_icon px-1"  aria-hidden="true"></i>
+                    <!-- <a href="{{ url('/delete_bill/'.$bill->id) }}"> -->
+                    
+                    <a href="#">
+                        <i class="fas fa-trash delete_icon px-1"  aria-hidden="true" 
+                        data-link="{{ url('/delete_bill/'.$bill->id) }}" data-toggle="modal" data-target="#deleteConfirmationModal"></i>
                     </a>
 
                 </td>
@@ -92,6 +95,8 @@
 </div>
 @include('includes.modal.new_expense')
 @include('includes.modal.edit_expense')
+@include('includes.modal.delete_confirmation')
+
 <script src=" {{asset('public/js/jquery.min.js')}}"></script>
 <script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
 

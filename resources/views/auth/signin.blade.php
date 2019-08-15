@@ -6,7 +6,7 @@ Signin
 @section('content')
 <div class=" col-md-4 mt-4 ml-auto mr-auto form_parent">
     <form class="px-4 py-3 form-container " method="post" action="{{'signin'}}">
-        <h3>Sign In</h3>
+        <h3>Login</h3>
         <hr>
         @if ($errors->has('message'))  
         <div class="alert alert-info">  {{ $errors->first('message')}}</div>
