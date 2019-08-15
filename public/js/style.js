@@ -27,13 +27,10 @@ $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
   // modal.find('.modal-title').text('New message to ' + recipient);
   // modal.find('.modal-body input').val(recipient);
 });
-
-// $(".delete_icon").on("click", function(){
-//   $('#deleteConfirmationModal').modal('show');
-// });
-// $(function() {
-//   $("#start_date,#end_date").datepicker({
-//     format: "mm/dd/yyyy",
-//   });
-// });
+ 
+$(function() {
+  $("#start_date,#end_date").datepicker({
+    format: "mm/dd/yyyy",
+  });
+});
 

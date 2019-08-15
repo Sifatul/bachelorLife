@@ -377,12 +377,12 @@ textarea {
 
 
 
-
 html,
 body {
   margin: 0;
   height: 100%;
   background: white;
+  padding-right: 0 !important ;
   /* background: #f8f9fa; */
 }
 

@@ -93,11 +93,9 @@
     <!-- {{ $each_bill->links() }} -->
     @endif
 </div>
+
 @include('includes.modal.new_expense')
 @include('includes.modal.edit_expense')
 @include('includes.modal.delete_confirmation')
-
-<script src=" {{asset('public/js/jquery.min.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
 
 @endsection
