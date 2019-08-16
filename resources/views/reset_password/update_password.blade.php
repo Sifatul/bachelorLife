@@ -22,7 +22,7 @@ Signin
         @endif
       
         <div class="form-group {{$errors->has('password')? 'has-error':''}}">
-            <label for="exampleDropdownFormPassword1">Enter your new password</label>
+            <label class = "py-1" for="exampleDropdownFormPassword1">Enter your new password</label>
             <input type="password" name="password" required class="form-control {{$errors->has('password')?'is-invalid':''}}" id="exampleDropdownFormPassword1" placeholder="Password" value="{{Request::old('password') }}">
             <input type="hidden" name="reset_token"   value="{{  $reset_token }}">
             <div class="invalid-feedback">{{$errors->first('password')}}</div>
@@ -34,7 +34,7 @@ Signin
          
         <button type="submit" class="btn btn-primary">
             <span class="px-1">Send Password</span>
-            <i class="fas fa-sign-in-alt"></i>
+            <!-- <i class="fas fa-sign-in-alt"></i> -->
         </button>
         @csrf
          

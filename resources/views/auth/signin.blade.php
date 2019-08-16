@@ -7,9 +7,9 @@ Signin
 <div class=" col-md-4 mt-4 ml-auto mr-auto form_parent">
     <form class="px-4 py-3 form-container " method="post" action="{{'signin'}}">
         <h3>Login</h3>
-        <hr>
+        <hr> 
         @if ($errors->has('message'))  
-        <div class="alert alert-info">  {{ $errors->first('message')}}</div>
+        <div class="alert alert-danger">  {{ $errors->first('message')}}</div>
         @endif
         @if (session("auth_failed"))
         <div class="alert alert-danger">
@@ -40,7 +40,7 @@ Signin
         </div>
         <button type="submit" class="btn btn-primary">
             <span class="px-1">Sign in</span>
-            <i class="fas fa-sign-in-alt"></i>
+            <!-- <i class="fas fa-sign-in-alt"></i> -->
         </button>
         @csrf
         <div class="form-group">

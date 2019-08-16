@@ -23,14 +23,14 @@ Signin
         @endif         
         
         <div class="form-group {{$errors->has('email')? 'has-error':''}}">
-            <label for="exampleDropdownFormEmail1">Enter your email address and we will send you a link to reset your password</label>
+            <label class = "py-1 line-height-normal" for="exampleDropdownFormEmail1">Enter your email address and we will send you a link to reset your password</label>
             <input type="email" required  class="form-control {{$errors->has('email')?'is-invalid':''}}" name="email" id="exampleDropdownFormEmail1" placeholder="email@example.com" value="{{Request::old('email') }}">
             <div class="invalid-feedback">{{$errors->first('email')}}</div>
         </div>       
         
         <button type="submit" class="btn btn-primary">
             <span class="px-1">Send Password</span>
-            <i class="fas fa-sign-in-alt"></i>
+            <!-- <i class="fas fa-sign-in-alt"></i> -->
         </button>
         @csrf
          
