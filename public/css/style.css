@@ -505,6 +505,9 @@ font-size: initial;
   font-weight: bolder; 
 
 }
+#header_progress{
+  opacity: 0;
+}
 .inline_form{
   display: inline !important;
 }

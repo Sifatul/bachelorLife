@@ -33,4 +33,17 @@ $(function() {
     format: "mm/dd/yyyy",
   });
 });
+$('form').on('submit', function(event) {
+  // event.preventDefault();
+  $('#header_progress').css('opacity','1');
+  // $(this).submit();
 
+  value = 50;
+  setTimeout( function(){
+  $('#header_progress').css('opacity','1');
+  $('#header_progress .progress-bar').css('width',''+(value++)+'%');
+  } , 1000 ); 
+  $('#header_progress').css('opacity','0');
+
+});
+ 

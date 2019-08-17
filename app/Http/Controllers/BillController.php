@@ -33,7 +33,7 @@ class BillController extends Controller
             $each_bill =  $this->billservice->show_by_date($user_id, $now, $past_time)->paginate(10);
 
             $end_time = date('Y-m-d', strtotime($now));
-
+            // sleep(10);
             return view('bills')
                 ->with('all_cat_slug',  $all_cat_slug)
                 ->with('each_bill', $each_bill)
