@@ -427,7 +427,9 @@ text-transform: uppercase;
   color: #fdc57b;
   font-size: larger;
 }
-
+.dropdown {
+  cursor: pointer;
+}
 .header_dropdown .dropdown-menu {
   position: absolute;
   left: -140px;
