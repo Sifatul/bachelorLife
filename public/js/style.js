@@ -42,7 +42,7 @@ $('form').on('submit', function(event) {
   setTimeout( function(){
   $('#header_progress').css('opacity','1');
   $('#header_progress .progress-bar').css('width',''+(value++)+'%');
-  } , 1000 ); 
+  } , 2000 ); 
   $('#header_progress').css('opacity','0');
 
 });

@@ -65,7 +65,7 @@ class BillController extends Controller
         $Bill->cat_id =  $request->category_id;
         $Bill->amount = $request->amount;
         $this->billservice->update($Bill);
-        return redirect()->action('HomeController@index');
+        return redirect('/');
     }
 
     public function delete($id)
