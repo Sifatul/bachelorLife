@@ -24,10 +24,11 @@ class BillController extends Controller
     }
     public function index()
     {
+        
         if (Auth::check()) {
             $user_id = Auth::id();
             $now = Carbon::now();
-            $past_time  = Carbon::now()->startOfMonth()->subMonth();
+            $past_time  = Carbon::now()->startOfMonth();
             $all_cat_slug =  $this->categoryservice->showAll();
             $individual_sum_bills =  $this->billservice->sum_by_cat($user_id, $now, $past_time);
             $each_bill =  $this->billservice->show_by_date($user_id, $now, $past_time)->paginate(10);
