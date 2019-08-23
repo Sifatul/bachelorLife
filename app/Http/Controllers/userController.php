@@ -36,15 +36,19 @@ class userController extends Controller
     }
     public function resend_verification_email($token){ 
         $res = $this->authservice->resend_verification_email($token);
+        $res_content = $res->getData();
         if ($res->status() == 200) {
         // dd($res);
-            $res_content = $res->getData();
+          
                         return view('plain')
                         ->with('resend_link', url('/') .'/resend_verification_email/'.$res_content->data->email_token  )
                         ->with('email',$res_content->data->email )
                         ->with('message','Verification email resent!');
         }else{
-            dd($res);
+
+            return view('auth.signup')
+            ->withErrors(['message'=>$res->getData()->message]);
+            
 
         }
     }

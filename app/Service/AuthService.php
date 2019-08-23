@@ -39,10 +39,11 @@ class AuthService
             'email' => $to_email,
             'email_token' => $token,
         ];
-        Mail::send('Mail.registration_verify', $data['data'], function ($message) use ($to_name, $to_email) {
+        $res = Mail::send('Mail.registration_verify', $data['data'], function ($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Confirmation of registration');
             $message->from('sifat.wallet@gmail.com', 'BachelorLife');
         });
+        dd( $res);
         $data['message'] = 'Verification code has been send to your email address. Please check your inbox!';
         return response()->json($data, 200);
     }
