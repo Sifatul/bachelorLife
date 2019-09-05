@@ -4,9 +4,9 @@ Signin
 @endsection
 
 @section('content')
-<div class="row">
-    <div class=" col-sm-8 col-md-6 col-lg-4 mt-4 ml-auto mr-auto form_parent">
-        <form class="px-4 py-3 form-container " method="post" action="{{'signin'}}">
+<div class="row py-3">
+    <div class=" col-sm-8 col-md-6 col-lg-3 mt-4 ml-auto mr-auto form_parent">
+        <form class="px-4  form-container " method="post" action="{{'signin'}}">
             <h3>Login</h3>
             <hr>
             @if ($errors->has('message'))
