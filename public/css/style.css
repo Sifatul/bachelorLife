@@ -417,9 +417,8 @@ text-transform: uppercase;
   border: 1px solid #394a51;
   border-radius: 5px;
   border-width: 0.5px 0.5px 0.5px 1px;
-  padding: 12px; 
-  width: 85%;
-  max-width: 400px;
+  padding: 12px;  
+  width: 100%;
   margin: auto;
 }
 
@@ -488,7 +487,10 @@ text-transform: uppercase;
 font-size: initial; 
 }
 
- 
+ .container-fluid{
+   padding-right: 0;
+   padding-left: 0;
+ }
 .container-fluid .table-responsive .delete_icon,
 .container-fluid .table-responsive .edit_icon {
   color: #000;

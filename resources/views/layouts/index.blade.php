@@ -2,10 +2,14 @@
 <html>
 @include('includes.head')
 <body>
+@include('includes.navbar')
 
-    @include('includes.navbar')
+    <div class="container-fluid">
 
-    @yield('content')
+@yield('content')
+    </div>
+
+  
 
 {{--signing/singup pages goes here--}}
 </body>
