@@ -45,5 +45,7 @@ $('form').on('submit', function(event) {
   } , 2000 ); 
   $('#header_progress').css('opacity','0');
 
+}); 
+ $( ".navbar-toggler" ).click(function() {
+  $('.sidebar').toggle();
 });
- 

@@ -2,10 +2,10 @@
     <nav class="navbar navbar-dark navbar-static-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{   url('/') }}"> {{ config('app.name') }}</a>
         {{--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--}}
-        <ul class="navbar-nav px-3">
+        <ul class="navbar-nav right-part px-2 py-2">
             <li class="nav-item text-nowrap">
                 @if( Auth::check())
-                <strong id="nav_user_name" px-1>{{ Auth::user()->name }}</strong>
+                <strong id="nav_user_name" px-2>{{ Auth::user()->name }}</strong>
                 <div class="dropdown header_dropdown">
                     <i class="fa fa-user" id="signOutButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <!-- <i class="fas fa-users"></i> -->
@@ -22,51 +22,14 @@
                         </a> --}}
                     </div>
                 </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span  class="fa fa-bars" aria-hidden="true"></span>
+                </button>
                 @endif
 
             </li>
         </ul>
     </nav>
-    {{--<nav class="navbar navbar-expand-lg navbar-light bg-light">--}}
-
-    {{--<a class="navbar-brand mb-0 h1" href="{{  Auth::check()? url('/home'): '' }}">{{ config('app.name') }}</a>--}}
-    {{--@if(Auth::check())--}}
-    {{--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"--}}
-    {{--aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">--}}
-    {{--</button>--}}
-    {{--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"--}}
-    {{--aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">--}}
-    {{--<span class="navbar-toggler-icon"></span>--}}
-    {{--</button>--}}
-
-    {{--<div class="collapse navbar-collapse" id="navbarSupportedContent">--}}
-    {{--<ul class="navbar-nav mr-auto">--}}
-    {{--<li class="nav-item active">--}}
-    {{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-    {{--</li>--}}
-    {{--<li class="nav-item">--}}
-    {{--<a class="nav-link" href="#">Link</a>--}}
-    {{--</li>--}}
-    {{--<li class="nav-item">--}}
-    {{--<a class="nav-link disabled" href="#">Disabled</a>--}}
-    {{--</li>--}}
-    {{--</ul>--}}
-
-    {{--</div>--}}
-    {{--<div class="form-inline my-2 my-lg-0">--}}
-    {{--<a href="{{url('logout')}}">--}}
-
-    {{--<span class="my-2 my-sm-0 px-2">Logout</span>--}}
-    {{--<i class="fas fa-sign-out-alt  fw6" title="Log Out"></i>--}}
-    {{--</a>--}}
-
-    {{--<span class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</span>--}}
-    {{--</div>--}}
-    {{--@endif--}}
-
-
-    {{--</nav>--}}
-
 
     <div class="progress" id="header_progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 10%"></div>
