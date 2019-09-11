@@ -519,6 +519,9 @@ font-size: initial;
 .no-bg_btn{
   background: transparent;
 }
+.navbar-toggler .fas {
+  color:#f78888;
+}
 
 
 section {

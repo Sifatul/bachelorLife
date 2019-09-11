@@ -5,7 +5,7 @@ Signup
 @section('content')
 
 <div class="row py-3">
-    <div class=" col-sm-8 col-md-6 col-lg-3 mt-4 ml-auto mr-auto form_parent">
+    <div class=" col-10 col-sm-7 col-md-6 col-lg-3 mt-4 ml-auto mr-auto form_parent">
         <form class="px-4  form-container" method="post" action="{{route('signup')}}" autocomplete="off">
             <h3>Register</h3>
             <hr>
