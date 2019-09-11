@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 border-bottom">
     <h1 class="h2">Dashboard</h1>
     <div class="toolbar_date_range ">
 

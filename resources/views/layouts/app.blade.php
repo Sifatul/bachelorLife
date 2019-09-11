@@ -8,7 +8,7 @@
     @include('includes.sidebar')
 
     <div class="container-fluid">
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-8 col-sm-9 col-md-10 ml-sm-auto col-lg-10 px-4">
             @yield('content')
             {{-- contents goes inside from here--}}
 
