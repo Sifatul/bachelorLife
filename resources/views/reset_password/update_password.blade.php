@@ -4,7 +4,7 @@ Signin
 @endsection
 
 @section('content')
-<div class=" col-10 col-sm-7 col-md-6 col-lg-3 mt-4 ml-auto mr-auto form_parent">
+<div class=" col-10 col-sm-7 col-md-6 col-lg-4 mt-4 ml-auto mr-auto form_parent">
     <form class="px-4 py-3 form-container " method="post" action="{{ 'update'}}">
         <h3>Reset Password</h3>
         <hr>

@@ -7,7 +7,7 @@
     @include('includes.navbar')
     @include('includes.sidebar')
 
-    <div class="container-fluid">
+    <div class="container-fluid pb-2">
         <main role="main" class="col-9 col-sm-9 col-md-10 col-lg-10 ml-auto  px-4">
             @yield('content')
             {{-- contents goes inside from here--}}

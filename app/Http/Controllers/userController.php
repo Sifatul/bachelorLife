@@ -105,6 +105,9 @@ class userController extends Controller
         if ($res->status() == 200) {
             Auth::loginUsingId($res->getData()->data->id,  $request->get('remember_me'));
             return   redirect('/');
+        }else if ($res->status() == 404){
+            return view('auth.signup')
+            ->withErrors(['message'=>$res->getData()->message]);
         }else { 
             
             return view('auth.signin')

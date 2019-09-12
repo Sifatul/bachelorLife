@@ -473,8 +473,7 @@ body {
 }
 #nav_user_name {
   color: white;
-  text-transform: uppercase;
-  font-size: medium;
+  text-transform: uppercase; 
 }
 .navbar-nav.right-part {
   float: right;
@@ -515,6 +514,7 @@ body {
 .navbar-dark .navbar-brand {
   color: #fdc57b;
   font-size: larger;
+  font-weight: bold;
 }
 .dropdown {
   cursor: pointer;
@@ -622,7 +622,9 @@ body {
   border: none;
   display: none;
 }
-
+.page-link {
+  color: black;
+}
 section {
   padding-bottom: 20px;
 }
@@ -655,6 +657,7 @@ section {
   }
   #nav_user_name {
     font-size: small;
+
   }
 }
 

@@ -1,11 +1,13 @@
 <header>
     <nav class="navbar navbar-dark navbar-static-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-3 col-sm-3 col-md-2 col-lg-2 mr-0" href="{{   url('/') }}"> {{ config('app.name') }}</a>
+        <a class="navbar-brand col-3 col-sm-3 col-md-2 col-lg-2 mr-0" href="{{   url('/') }}"> 
+        {{ config('app.name') }}
+    </a>
         {{--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">--}}
         <ul class="navbar-nav right-part px-2 py-2">
             <li class="nav-item text-nowrap">
                 @if( Auth::check())
-                <strong id="nav_user_name" class="px-2">{{ Auth::user()->name }}</strong>
+                <p id="nav_user_name" class="px-2">{{ Auth::user()->name }}</p>
                 <div class="dropdown header_dropdown">
                     <i class="fa fa-user" id="signOutButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <!-- <i class="fas fa-users"></i> -->
