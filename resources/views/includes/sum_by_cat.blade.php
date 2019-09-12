@@ -31,7 +31,7 @@
             @endswitch
 
             <h5 class="card-title pt-1" > {{$single_sum->cat_name}}</h5>
-            <p class="card-text"> {{$single_sum->total}} .tk</p>
+            <p class="card-text  "> {{$single_sum->total}} .tk</p>
         </div>
     </div>
     @endforeach

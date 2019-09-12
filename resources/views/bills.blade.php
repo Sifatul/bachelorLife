@@ -6,21 +6,27 @@
     <h1 class="h2">Dashboard</h1>
     <div class="toolbar_date_range ">
 
-        <button class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </button>
+        <div class="date_from_section">
+            <div class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </div>
 
-        <button class="btn btn-sm btn-outline-secondary" id="start_date">
-            <i class="far fa-calendar-alt" aria-hidden="true"></i>
-           
-            {{date('Y-m-d ', strtotime($start_time))   }}
-        </button>
+            <button class="btn btn-sm btn-outline-secondary" id="start_date">
+                <i class="far fa-calendar-alt" aria-hidden="true"></i>
 
-        <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
+                {{date('Y-m-d ', strtotime($start_time))   }}
+            </button>
+        </div>
+        <div class="date_to_section">
 
-        <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
-            <i class="far fa-calendar-alt" aria-hidden="true"></i>
-           
-            {{date('Y-m-d ', strtotime($end_time))   }}
-        </button>
+            <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
+
+            <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
+                <i class="far fa-calendar-alt" aria-hidden="true"></i>
+
+                {{date('Y-m-d ', strtotime($end_time))   }}
+            </button>
+
+        </div>
+
 
     </div>
 
@@ -42,8 +48,8 @@
 <div class="table-responsive">
     @if( count($each_bill))
     <table class="table table-striped table-sm">
-        <thead >
-            <tr >
+        <thead>
+            <tr>
                 <th class="py-2">#</th>
                 <th class="py-2">Date</th>
                 <th class="py-2">Reason</th>
@@ -67,13 +73,12 @@
                 <td>{{ $bill->amount }} </td>
 
                 <td>
-                    <i class="fas fa-edit edit_icon px-1" aria-hidden="true" data-toggle="modal" data-target="#exampleModal" data-expense-cat_id="{{  $bill->cat_id }}" data-expense-amount="{{  $bill->amount }}" data-expense-id="{{  $bill->id }}">
+                    <i class="fas fa-edit edit_icon px-1 pt-1" aria-hidden="true" data-toggle="modal" data-target="#exampleModal" data-expense-cat_id="{{  $bill->cat_id }}" data-expense-amount="{{  $bill->amount }}" data-expense-id="{{  $bill->id }}">
                     </i>
                     <!-- <a href="{{ url('/delete_bill/'.$bill->id) }}"> -->
-                    
+
                     <a href="#">
-                        <i class="fas fa-trash delete_icon px-1"  aria-hidden="true" 
-                        data-link="{{ url('/delete_bill/'.$bill->id) }}" data-toggle="modal" data-target="#deleteConfirmationModal"></i>
+                        <i class="fas fa-trash delete_icon px-1 py-1" aria-hidden="true" data-link="{{ url('/delete_bill/'.$bill->id) }}" data-toggle="modal" data-target="#deleteConfirmationModal"></i>
                     </a>
 
                 </td>
