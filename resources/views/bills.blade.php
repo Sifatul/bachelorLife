@@ -6,7 +6,7 @@
     <h1 class="h2">Dashboard</h1>
     <div class="toolbar_date_range ">
 
-        <div class="date_from_section">
+        <div class="date_from_section py-1">
             <div class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </div>
 
             <button class="btn btn-sm btn-outline-secondary" id="start_date">
@@ -15,7 +15,7 @@
                 {{date('Y-m-d ', strtotime($start_time))   }}
             </button>
         </div>
-        <div class="date_to_section">
+        <div class="date_to_section  py-1">
 
             <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
 

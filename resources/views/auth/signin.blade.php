@@ -5,7 +5,7 @@ Signin
 
 @section('content')
 <div class="row py-3">
-    <div class=" col-10 col-sm-7 col-md-6 col-lg-4 mt-4 ml-auto mr-auto form_parent">
+    <div class=" col-10 col-sm-7 col-md-6 col-lg-4 col-xl-3 mt-4 ml-auto mr-auto form_parent">
         <form class="px-4  form-container " method="post" action="{{'signin'}}">
             <h3>Login</h3>
             <hr>

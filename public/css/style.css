@@ -538,6 +538,7 @@ body {
 }
 .toolbar_date_range {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .dropdown-menu {
@@ -639,6 +640,27 @@ section {
   font-weight: bold;
 }
 
+@media (max-width: 400px) {
+  .navbar-dark .navbar-brand { 
+    font-size: small;
+  }
+  .sidebar .fa {
+    font-size: large;
+}
+.col-3 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30%;
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+.col-9 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  max-width: 70%;
+}
+
+}
 @media (max-width: 575.98px) {
   .navbar-toggler {
     display: block;
