@@ -7,7 +7,7 @@
  * Time: 6:33 PM
  */
 ?>
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-3 col-sm-3 col-md-2 col-lg-2 d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">

@@ -9,14 +9,16 @@
         <button class="btn btn-sm  mr-1 no-bg_btn"> <strong>FROM</strong> </button>
 
         <button class="btn btn-sm btn-outline-secondary" id="start_date">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <i class="far fa-calendar-alt" aria-hidden="true"></i>
+            
             {{date('Y-m-d ', strtotime($start_time))   }}
         </button>
 
         <button class="btn btn-sm  ml-4 no-bg_btn"> <strong>TO</strong> </button>
 
         <button class="btn btn-sm btn-outline-secondary ml-1 " id="end_date">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <i class="far fa-calendar-alt" aria-hidden="true"></i>
+            
             {{date('Y-m-d ', strtotime($end_time))   }}
         </button>
 
@@ -24,46 +26,7 @@
 
 </div>
 
-<div class="row pb-0  ">
-    @if($individual_sum_bills)
-    @foreach ($individual_sum_bills as $single_sum)
-    <div class="card mt-2">
-        <div class="card-body card-body-dashboard">
-            @switch($single_sum->cat_name)
-            @case('Rent')
-            <i class="fa fa-home" aria-hidden="true"></i>
-            @break
-            @case('Electricity')
-            <i class="fa fa-plug" aria-hidden="true"></i>
-            @break
-            @case('Gas')
-            <i class="fa fa-fire" aria-hidden="true"></i>
-            @break
-            @case('Food')
-            <i class="fa fa-cutlery" aria-hidden="true"></i>
-            @break
-            @case('Mobile')
-            <i class="fa fa-mobile" aria-hidden="true"></i>
-            @break
-            @case('Internet')
-            <i class="fa fa-globe" aria-hidden="true"></i>
-            @break
-            @case('Other')
-            <i class="fa fa-random" aria-hidden="true"></i>
-            @break
-            @case('Shopping')
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            @break
-            @endswitch
-
-            <h5 class="card-title"> {{$single_sum->cat_name}}</h5>
-            <p class="card-text"> {{$single_sum->total}} .tk</p>
-        </div>
-    </div>
-    @endforeach
-    @endif
-
-</div>
+@include('includes.sum_by_cat')
 
 
  
@@ -112,8 +75,5 @@
     <!-- {{ $each_bill->links() }} -->
     @endif
 </div>
- 
-<script src=" {{asset('public/js/jquery.min.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
 
 @endsection

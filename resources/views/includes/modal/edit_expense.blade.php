@@ -11,7 +11,7 @@
               </div>
               <div class="modal-body">
                   <div class="form-group">
-                      <label for="exampleFormControlSelect1">Expense Category</label>
+                      <label class="py-1" for="exampleFormControlSelect1">Expense Category</label>
                       <select name="category_id" class="form-control" id="edit_expense_select_cat">
                           @foreach ($all_cat_slug as $cat)
                             <option value="{{$cat->cat_id}}" >{{  $cat->cat_name }}</option>
@@ -19,7 +19,7 @@
                       </select>
                   </div>
                   <div class="form-group">
-                      <label for="exampleFormControlInput1">Amount</label>
+                      <label class="py-1" for="exampleFormControlInput1">Amount</label>
                       <input type="number" name="amount" required="true" class="form-control edit-expense_amount"  placeholder="100 ">
                       <input type="hidden"  name="expense_id"   class="edit-expense-id">
                   </div> 

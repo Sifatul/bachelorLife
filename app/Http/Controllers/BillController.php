@@ -24,22 +24,24 @@ class BillController extends Controller
     }
     public function index()
     {
+        
         if (Auth::check()) {
             $user_id = Auth::id();
             $now = Carbon::now();
-            $end_time  = Carbon::now()->startOfMonth()->subMonth();
+            $past_time  = Carbon::now()->startOfMonth();
             $all_cat_slug =  $this->categoryservice->showAll();
-            $individual_sum_bills =  $this->billservice->sum_by_cat($user_id, $now, $end_time);
-            $each_bill =  $this->billservice->show_by_date($user_id, $now, $end_time)->paginate(10);
+            $individual_sum_bills =  $this->billservice->sum_by_cat($user_id, $now, $past_time);
+            $each_bill =  $this->billservice->show_by_date($user_id, $now, $past_time)->paginate(10);
 
-            $start_time = date('Y-m-d', strtotime($now));
-
-            return view('home')
+            $end_time = date('Y-m-d', strtotime($now));
+            // sleep(10);
+            return view('bills')
                 ->with('all_cat_slug',  $all_cat_slug)
                 ->with('each_bill', $each_bill)
                 ->with('individual_sum_bills', $individual_sum_bills)
-                ->with('start_time', $start_time)
-                ->with('end_time', $end_time->toDateString());
+                ->with('start_time', $past_time)
+                ->with('end_time', $now->toDateString())
+                ->with('title','Dashboard');
         } else {
 
             return redirect('/login');
@@ -64,7 +66,7 @@ class BillController extends Controller
         $Bill->cat_id =  $request->category_id;
         $Bill->amount = $request->amount;
         $this->billservice->update($Bill);
-        return redirect()->action('HomeController@index');
+        return redirect('/');
     }
 
     public function delete($id)

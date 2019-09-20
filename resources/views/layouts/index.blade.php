@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 @include('includes.head')
-<body>
 
+<body>
     @include('includes.navbar')
 
-    @yield('content')
+    <div class="container-fluid">
 
-{{--signing/singup pages goes here--}}
+        @yield('content')
+    </div>
+
+
+
+    {{--signing/singup pages goes here--}}
 </body>
+
+<script src=" {{asset('/js/jquery.min.js')}}"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
+
 </html>

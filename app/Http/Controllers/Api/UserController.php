@@ -25,11 +25,11 @@ class UserController extends Controller
      */
 
     protected $authservice;
-    
+
     public function __construct(authservice $authservice)
-	{
-        $this->authservice = $authservice; 
-	}
+    {
+        $this->authservice = $authservice;
+    }
     public function index()
     {
         //
@@ -60,9 +60,8 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
-        }       
-        return $this->authservice->store($request); 
-         
+        }
+        return $this->authservice->store($request);
     }
 
     /**
@@ -125,10 +124,21 @@ class UserController extends Controller
             'password' => $request->get('password')
         ];
 
-        return $this->authservice->login( $credentials);
-    
+        $res = $this->authservice->login($credentials);
+        if ($res->status() != 200) {
+            return $res;
+        }
 
-        
+        $user_info = $res->getData()->data;
+
+        $data['data'] = [
+            'name' => $user_info->name,
+            'email' => $user_info->email,
+            'created_at' => $user_info->created_at,
+            'access_token' => $user_info->access_token,
+        ];
+        $data['message'] = $res->getData()->message;
+        return response()->json($data, 200);
     }
     public function logout()
     {
@@ -137,5 +147,11 @@ class UserController extends Controller
         //     $data['message'] = $Success_message;
         //     return response()->json($data, $Success_code);
         // }
+    }
+
+
+    public function verify_email($token)
+    {
+        return $this->authservice->verify_email_token($token);
     }
 }
