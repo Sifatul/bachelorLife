@@ -73,14 +73,14 @@ class userController extends Controller
 // dd($res_content);
 
 
-            return view('plain')
-            ->with('resend_link', url('/') .'/resend_verification_email/'.$res_content->data->email_token  )
-            ->with('email',$res_content->data->email  )
-            ->with('message','Please verify your email address!');
-            ;
-            // ;
-            // return   redirect('/login')
-            // ->with('status', $res->getData()->message);
+            // return view('plain')
+            // ->with('resend_link', url('/') .'/resend_verification_email/'.$res_content->data->email_token  )
+            // ->with('email',$res_content->data->email  )
+            // ->with('message','Please verify your email address!');
+        
+          
+            return   redirect('/login')
+            ->with('status', $res->getData()->message);
         }
     }
 
@@ -126,19 +126,18 @@ class userController extends Controller
     }
 
 
-    public function verify_email($token){
-        $set_user_verified = $this->authservice->set_user_verified($token);        
-        if($set_user_verified->status() != 200){ 
-            return redirect('/login')
-            ->withErrors(['message'=>$set_user_verified->getData()->message]);
-        }
+    // public function verify_email($token){
+    //     $set_user_verified = $this->authservice->set_user_verified($token);        
+    //     if($set_user_verified->status() != 200){ 
+    //         return redirect('/login')
+    //         ->withErrors(['message'=>$set_user_verified->getData()->message]);
+    //     }
         
 
-        return   redirect('/login')
-        ->with('status','Account verified.');
-
+    //     return   redirect('/login')
+    //     ->with('status','Account verified.');
          
-       }
+    //    }
        
     
 }

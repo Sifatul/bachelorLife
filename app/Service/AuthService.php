@@ -52,14 +52,16 @@ class AuthService
     {
         $check_user = User::where('email', '=', $request->email)->first();
         if ($check_user) {
-            if ($check_user->status == 1) {
-                //account is still unverified
-                $res_email = $this->send_register_mail($check_user->id, $check_user->email, $check_user->name);
-                return  $res_email;
-            } elseif ($check_user->status == 2) {
-                $data['message'] = 'Email already registered. Please login';
+                            $data['message'] = 'Email already registered. Please login';
                 return response()->json($data, 409);
-            }
+            // if ($check_user->status == 1) {
+            //     //account is still unverified
+            //     $res_email = $this->send_register_mail($check_user->id, $check_user->email, $check_user->name);
+            //     return  $res_email;
+            // } elseif ($check_user->status == 2) {
+            //     $data['message'] = 'Email already registered. Please login';
+            //     return response()->json($data, 409);
+            // }
         } else {
             $user = new User();
             $user->email = $request->email;
